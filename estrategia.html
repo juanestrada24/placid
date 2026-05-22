@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Placid Farm — Estrategia y Riesgos</title>
+<link rel="stylesheet" href="shared.css">
+<style>
+/* EMBEDDED VALUE */
+.embedded{background:var(--ink);padding:100px 0}
+.emb-grid{display:grid;grid-template-columns:1fr 1fr;gap:3px;margin-top:48px;background:rgba(200,168,75,0.12);border-radius:4px;overflow:hidden}
+.emb-card{background:rgba(26,18,8,0.7);padding:36px 32px}
+.emb-lbl{font-size:0.6rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--stone);margin-bottom:12px}
+.emb-val{font-family:'Cormorant Garamond',serif;font-size:3rem;font-weight:600;color:var(--gold);line-height:1;margin-bottom:6px}
+.emb-val-sub{font-size:0.75rem;color:rgba(246,238,216,0.5);margin-bottom:16px}
+.emb-body{font-size:0.78rem;line-height:1.7;color:rgba(246,238,216,0.55)}
+.emb-insight{background:rgba(74,94,53,0.2);border:1px solid rgba(122,143,90,0.2);border-radius:4px;padding:28px 32px;margin-top:3px;grid-column:span 2}
+.emb-insight p{font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-style:italic;color:rgba(246,238,216,0.75);line-height:1.75}
+.emb-table{margin-top:40px;background:rgba(246,238,216,0.03);border-radius:4px;overflow:hidden}
+.emb-table-head{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;padding:12px 24px;background:rgba(200,168,75,0.1);border-bottom:1px solid rgba(200,168,75,0.15)}
+.emb-th{font-size:0.6rem;letter-spacing:0.16em;text-transform:uppercase;color:var(--stone);font-weight:500}
+.emb-row{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;padding:12px 24px;border-bottom:1px solid rgba(246,238,216,0.04)}
+.emb-row:last-child{border-bottom:none}
+.emb-row.hl{background:rgba(122,143,90,0.08)}
+.emb-td{font-size:0.78rem;color:rgba(246,238,216,0.6)}
+.emb-td:first-child{color:var(--cream)}
+.emb-td.gold{color:var(--gold);font-family:'DM Mono',monospace}
+/* RECURRING INCOME */
+.recurring{background:var(--linen);padding:80px 0}
+.rec-grid{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center;margin-top:48px}
+.rec-sources{display:flex;flex-direction:column;gap:14px}
+.rec-source{background:var(--white);border-radius:4px;padding:18px 20px;display:flex;justify-content:space-between;align-items:center;border-left:4px solid var(--sage)}
+.rec-source h5{font-family:'Cormorant Garamond',serif;font-size:0.95rem;font-weight:600;color:var(--ink);margin-bottom:2px}
+.rec-source p{font-size:0.7rem;color:var(--stone)}
+.rec-amount{font-family:'Cormorant Garamond',serif;font-size:1.2rem;font-weight:600;color:var(--ink);white-space:nowrap}
+.rec-total{background:var(--ink);border-radius:4px;padding:18px 22px;display:flex;justify-content:space-between;align-items:center;margin-top:4px}
+.rec-total span:first-child{font-size:0.65rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--stone)}
+.rec-total span:last-child{font-family:'Cormorant Garamond',serif;font-size:1.8rem;font-weight:600;color:var(--gold)}
+.coverage-card{background:var(--ink);border-radius:4px;padding:36px}
+.cov-big{text-align:center;margin-bottom:28px}
+.cov-num{font-family:'Cormorant Garamond',serif;font-size:5rem;font-weight:600;color:var(--gold);line-height:1}
+.cov-lbl{font-size:0.62rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--stone);margin-top:4px}
+.bar-group{display:flex;flex-direction:column;gap:14px}
+.bar-item-lbl{display:flex;justify-content:space-between;font-size:0.7rem;color:rgba(246,238,216,0.55);margin-bottom:6px}
+.bar-track{height:8px;background:rgba(253,250,244,0.08);border-radius:4px;overflow:hidden}
+.bar-fill{height:100%;border-radius:4px}
+.bar-fill.sage{background:var(--sage)}
+.bar-fill.gold{background:var(--straw)}
+/* RISK MATRIX */
+.risk{background:var(--parchment);padding:100px 0}
+.risk-grid{display:grid;grid-template-columns:1fr 1fr;gap:3px;margin-top:60px;background:rgba(106,68,35,0.08);border-radius:4px;overflow:hidden}
+.risk-item{background:var(--white);padding:26px}
+.risk-item.high{background:rgba(140,58,32,0.03)}
+.risk-item.low{background:rgba(74,94,53,0.03)}
+.risk-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:12px;gap:12px}
+.risk-title{font-family:'Cormorant Garamond',serif;font-size:1.05rem;font-weight:600;color:var(--ink)}
+.risk-badge{padding:3px 10px;border-radius:2px;font-size:0.55rem;letter-spacing:0.14em;text-transform:uppercase;font-weight:700;white-space:nowrap}
+.risk-badge.high{background:rgba(140,58,32,0.12);color:var(--rust)}
+.risk-badge.med{background:rgba(200,168,75,0.15);color:var(--straw)}
+.risk-badge.low{background:rgba(74,94,53,0.1);color:var(--moss)}
+.risk-desc{font-size:0.77rem;color:var(--stone);line-height:1.6;margin-bottom:14px}
+.risk-mit{background:rgba(122,143,90,0.07);border-radius:2px;padding:12px 14px}
+.risk-mit-lbl{font-size:0.58rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--moss);font-weight:600;margin-bottom:5px}
+.risk-mit p{font-size:0.74rem;color:var(--bark);line-height:1.55}
+.risk-key{display:flex;gap:20px;margin-top:24px;justify-content:flex-end}
+.rk{display:flex;align-items:center;gap:7px;font-size:0.62rem;color:var(--stone)}
+.rk-dot{width:10px;height:10px;border-radius:50%}
+/* TIMELINE */
+.timeline-section{background:var(--white);padding:100px 0}
+@media(max-width:960px){
+  .emb-grid{grid-template-columns:1fr}
+  .emb-insight{grid-column:auto}
+  .emb-table-head,.emb-row{grid-template-columns:2fr 1fr 1fr}
+  .emb-table-head .emb-th:last-child,.emb-row .emb-td:last-child{display:none}
+  .rec-grid{grid-template-columns:1fr;gap:32px}
+  .risk-grid{grid-template-columns:1fr}
+  .risk-key{flex-wrap:wrap}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">Placid <span>Farm</span></a>
+  <ul class="nav-links">
+    <li><a href="index.html">Inicio</a></li>
+    <li><a href="concepto.html">Concepto</a></li>
+    <li><a href="producto.html">Producto</a></li>
+    <li><a href="inversion.html">Inversión</a></li>
+    <li><a href="estrategia.html" class="active">Estrategia</a></li>
+    <li><a href="contacto.html">Galería</a></li>
+    <li><a href="contacto.html#interes" class="nav-cta">Expresar Interés</a></li>
+  </ul>
+  <button class="nav-mobile-toggle" onclick="toggleNav()"><span></span><span></span><span></span></button>
+</nav>
+
+<div class="page-hero">
+  <div class="container">
+    <div class="s-label gold">Estrategia · Riesgos · Ejecución</div>
+    <h1 class="s-title light">El valor <em>embebido,</em><br>los riesgos y el plan</h1>
+    <p class="s-body light">Por qué la Zona B vale más de lo que parece, cómo se mitigan los riesgos, y los 30 meses hacia retornos estabilizados.</p>
+  </div>
+</div>
+
+<!-- EMBEDDED VALUE -->
+<section class="embedded">
+  <div class="container">
+    <div class="s-label gold">El Valor Embebido</div>
+    <h2 class="s-title light">La misma tierra vale<br><em>múltiplos diferentes</em> según el contexto</h2>
+    <p class="s-body light">El campo de golf fue valorado por el vendedor en $4,117 por homesite — tierra sin historia, sin comunidad, sin branding. En 3 años, con Placid Farm operando, ese mismo suelo estará en una categoría completamente diferente.</p>
+    <div class="emb-grid">
+      <div class="emb-card reveal">
+        <div class="emb-lbl">Valor Implícito HOY (proporcional a 4 acres)</div>
+        <div class="emb-val">~$50K</div>
+        <div class="emb-val-sub">Precio de tierra sin uso · sin entitlement · sin comunidad</div>
+        <p class="emb-body">El vendedor asigna $400,000 al restaurante y el resto al campo. Las 4.42 acres del clubhouse valen en papel menos del 3% del deal. Pero ya tienen R-3 zoning con FLU High Density — un activo con entitlement listo que el mercado aún no ha descubierto.</p>
+      </div>
+      <div class="emb-card reveal">
+        <div class="emb-lbl">Valor Potencial AÑO 3 (con comunidad establecida)</div>
+        <div class="emb-val">$2.1M–$3.2M</div>
+        <div class="emb-val-sub">Con comunidad activa + entitlement + branding + absorption history</div>
+        <p class="emb-body">Aplicando land basis típico de Florida (10–15% del GSV) a los 48 townhomes proyectados: GSV conservador $15.6M × 10% = $1.56M. Con el premium de pad-ready, comunidad establecida y historial de ventas: $2.1M–$3.2M. Sobre $50K de costo de entrada.</p>
+      </div>
+      <div class="emb-insight reveal">
+        <p>"El mismo acre puede valer $20K como tierra rural, $150K como homesite, o millones si se convierte en el corazón experiencial del proyecto. Por eso los mejores developers no venden construcción — venden worldbuilding. El suelo físicamente es el mismo. Lo que cambia es la estructura narrativa y económica que lo rodea."</p>
+      </div>
+    </div>
+    <div class="emb-table reveal">
+      <div class="emb-table-head">
+        <div class="emb-th">Escenario Zona B — 48 Townhomes</div>
+        <div class="emb-th">GSV</div>
+        <div class="emb-th">Land Basis 12%</div>
+        <div class="emb-th">50% Inversionista</div>
+      </div>
+      <div class="emb-row"><div class="emb-td">Conservador · 48 × $325,000</div><div class="emb-td gold">$15,600,000</div><div class="emb-td gold">$1,872,000</div><div class="emb-td gold">$936,000</div></div>
+      <div class="emb-row hl"><div class="emb-td">Medio · 48 × $375,000</div><div class="emb-td gold">$18,000,000</div><div class="emb-td gold">$2,160,000</div><div class="emb-td gold">$1,080,000</div></div>
+      <div class="emb-row"><div class="emb-td">Optimista · 48 × $450,000</div><div class="emb-td gold">$21,600,000</div><div class="emb-td gold">$3,240,000</div><div class="emb-td gold">$1,620,000</div></div>
+      <div class="emb-row hl"><div class="emb-td">Con premium pad-ready + comunidad activa</div><div class="emb-td gold">$18,000,000</div><div class="emb-td gold">$2,700,000–$3,600,000</div><div class="emb-td gold">$1,350,000–$1,800,000</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- RECURRING INCOME -->
+<section class="recurring">
+  <div class="container">
+    <div class="s-label reveal">Ingresos Recurrentes</div>
+    <h2 class="s-title reveal">11× de cobertura sobre<br><em>tu retorno preferente</em></h2>
+    <p class="s-body reveal">El GP retiene tres flujos de ingresos recurrentes del negocio operativo. Estas cifras demuestran capacidad financiera real para honrar compromisos durante todo el ciclo del proyecto.</p>
+    <div class="rec-grid">
+      <div>
+        <div class="rec-sources reveal">
+          <div class="rec-source">
+            <div><h5>Property Management</h5><p>30% del pool · 40 cabañas · 62% ocupación</p></div>
+            <span class="rec-amount">$528,600/año</span>
+          </div>
+          <div class="rec-source">
+            <div><h5>HOA Collections</h5><p>$350/mes × 80 propietarios</p></div>
+            <span class="rec-amount">$336,000/año</span>
+          </div>
+          <div class="rec-source" style="border-left-color:var(--straw)">
+            <div><h5>Renta Restaurante</h5><p>Casa Tequila · activo desde el día uno</p></div>
+            <span class="rec-amount">$24,000/año</span>
+          </div>
+        </div>
+        <div class="rec-total reveal">
+          <span>Total Anual Recurrente</span>
+          <span>$888,600</span>
+        </div>
+        <div style="background:var(--white);border-radius:4px;padding:16px 20px;margin-top:10px;font-size:0.78rem;color:var(--bark);line-height:1.65" class="reveal">
+          La obligación de retorno preferente anual es $180,000 (12% sobre $1.5M). Los ingresos recurrentes del GP ($888,600) cubren esa obligación <strong>4.9× al año</strong>. Esto es comfort analysis, no garantía — pero muestra la capacidad operativa del promotor.
+        </div>
+      </div>
+      <div class="coverage-card reveal">
+        <div class="cov-big">
+          <div class="cov-num">11.1×</div>
+          <div class="cov-lbl">Ratio de Cobertura</div>
+        </div>
+        <div class="bar-group">
+          <div>
+            <div class="bar-item-lbl"><span>Obligación anual pref.</span><span>$180K/año</span></div>
+            <div class="bar-track"><div class="bar-fill sage" style="width:20%"></div></div>
+          </div>
+          <div>
+            <div class="bar-item-lbl"><span>Ingresos recurrentes GP</span><span>$888K/año</span></div>
+            <div class="bar-track"><div class="bar-fill gold" style="width:100%"></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RISK MATRIX -->
+<section class="risk">
+  <div class="container">
+    <div class="s-label reveal">Administración de Riesgo</div>
+    <h2 class="s-title reveal">Matriz de riesgo<br>y <em>mitigación</em></h2>
+    <p class="s-body reveal">Cada riesgo identificado tiene un mitigante específico. El modelo está diseñado para que ningún riesgo individual pueda matar el proyecto.</p>
+    <div class="risk-grid">
+      <div class="risk-item high reveal">
+        <div class="risk-header"><div class="risk-title">Open Space en el Plat Original</div><div class="risk-badge high">Alto</div></div>
+        <p class="risk-desc">El campo fue "platted as open space" bajo la subdivisión Placid Lakes. Podrían existir deed restrictions, easements o derechos de HOA que dificulten el desarrollo residencial.</p>
+        <div class="risk-mit"><div class="risk-mit-lbl">Mitigación</div><p>Title search antes de hacer oferta ($500–$1,500). Si existen restricciones, negociar contingencia en el contrato. El zoning R-3 de Zona B no está afectado — restaurante y 48 townhomes proceden independientemente.</p></div>
+      </div>
+      <div class="risk-item high reveal">
+        <div class="risk-header"><div class="risk-title">Proceso PD más Largo de lo Esperado</div><div class="risk-badge high">Alto</div></div>
+        <p class="risk-desc">El rezoning a Planned Development puede tomar 18–24 meses vs los 12–15 estimados, retrasando ventas de Zona A y extendiendo el período de carry del equity.</p>
+        <div class="risk-mit"><div class="risk-mit-lbl">Mitigación</div><p>Pre-application meeting inmediato con Engineering del condado. Land use attorney local con experiencia en Highlands County. Mientras espera el PD, el restaurante genera $24K/año. Zona B (R-3) puede desarrollarse independientemente sin PD.</p></div>
+      </div>
+      <div class="risk-item reveal">
+        <div class="risk-header"><div class="risk-title">Ventas más Lentas de lo Proyectado</div><div class="risk-badge med">Medio</div></div>
+        <p class="risk-desc">El mercado de cabañas premium en Highlands County no está probado. Podría tomar 36–42 meses en lugar de 24–30 para colocar las 80 unidades.</p>
+        <div class="risk-mit"><div class="risk-mit-lbl">Mitigación</div><p>Con 40 cabañas vendidas el inversionista ya recuperó capital + retorno preferente. El rental pool con 25 unidades genera $432,300/año (PM + HOA) para cubrir la operación mientras se cierran las restantes. El proyecto sobrevive a velocidades reducidas.</p></div>
+      </div>
+      <div class="risk-item reveal">
+        <div class="risk-header"><div class="risk-title">Aumento de Costos de Construcción</div><div class="risk-badge med">Medio</div></div>
+        <p class="risk-desc">Inflación de materiales o mano de obra puede elevar el costo de construcción por encima de los $95,000 por unidad comprometidos.</p>
+        <div class="risk-mit"><div class="risk-mit-lbl">Mitigación</div><p>El Preferred Builder Agreement se firma a precio fijo antes de cada unidad. El constructor asume el riesgo de materiales — es su compensación por la exclusividad y el volumen garantizado. Contingencia del 10% ($1.2M) absorbe variaciones menores.</p></div>
+      </div>
+      <div class="risk-item reveal">
+        <div class="risk-header"><div class="risk-title">Arsénico en el Suelo (2.86 mg/kg)</div><div class="risk-badge med">Medio</div></div>
+        <p class="risk-desc">El soil test muestra 2.86 mg/kg de arsénico — sobre el SCTL residencial de 2.1 mg/kg. Podría requerir remediación o afectar la aprobación para uso residencial.</p>
+        <div class="risk-mit"><div class="risk-mit-lbl">Mitigación</div><p>El nivel está muy por debajo del límite comercial (12 mg/kg) y es típico de campos de golf (promedio 69 mg/kg en Florida). Phase I ESA en proceso. Probable resultado: FDEP emite "No Further Action" letter. No afecta Zona B (comercial).</p></div>
+      </div>
+      <div class="risk-item reveal">
+        <div class="risk-header"><div class="risk-title">Demanda DSCR / STR no se Materializa</div><div class="risk-badge med">Medio</div></div>
+        <p class="risk-desc">Los compradores con perfil DSCR no aparecen en el volumen esperado, o los lenders endurecen criterios para tiny homes.</p>
+        <div class="risk-mit"><div class="risk-mit-lbl">Mitigación</div><p>Pre-acuerdos con 3 lenders DSCR (Lima One Capital, Kiavi, lenders locales portfolio) antes del lanzamiento. Cabañas de 400+ sq ft para calificar con lenders conservadores. DSCR 2.24× es excepcionalmente fuerte. Fallback: compradores con conventional loan.</p></div>
+      </div>
+      <div class="risk-item low reveal">
+        <div class="risk-header"><div class="risk-title">Wetlands Limitan el Área Desarrollable</div><div class="risk-badge low">Bajo</div></div>
+        <p class="risk-desc">El mapa de wetlands muestra áreas significativas en el interior. El buildable area podría reducirse de 67 a 38–44 acres efectivos.</p>
+        <div class="risk-mit"><div class="risk-mit-lbl">Mitigación</div><p>El plan de 80 cabañas en 67 acres es solo 1.2 u/acre. Con 44 acres buildable, el mismo plan cabe a 1.8 u/acre — aún dentro del FLU. Los wetlands se convierten en el activo de naturaleza más valioso del proyecto.</p></div>
+      </div>
+      <div class="risk-item low reveal">
+        <div class="risk-header"><div class="risk-title">Constructor no Cumple Timeline o Estándares</div><div class="risk-badge low">Bajo</div></div>
+        <p class="risk-desc">El preferred builder podría no cumplir el timeline de 6–8 semanas, o la calidad podría estar por debajo del estándar.</p>
+        <div class="risk-mit"><div class="risk-mit-lbl">Mitigación</div><p>Se seleccionan 2 constructores (no 1) para mantener competencia y capacidad de reemplazo. El 70% del pago al cierre es el incentivo de calidad más poderoso — el constructor no cobra si la unidad no pasa inspección final. Penalidades contractuales por retrasos.</p></div>
+      </div>
+    </div>
+    <div class="risk-key reveal">
+      <div class="rk"><div class="rk-dot" style="background:rgba(140,58,32,0.6)"></div>Riesgo Alto — Acción inmediata</div>
+      <div class="rk"><div class="rk-dot" style="background:rgba(200,168,75,0.6)"></div>Riesgo Medio — Monitoreo activo</div>
+      <div class="rk"><div class="rk-dot" style="background:rgba(74,94,53,0.5)"></div>Riesgo Bajo — Mitigado por diseño</div>
+    </div>
+  </div>
+</section>
+
+<!-- TIMELINE -->
+<section class="timeline-section">
+  <div class="container">
+    <div class="s-label reveal">Ejecución</div>
+    <h2 class="s-title reveal">30 meses hacia<br><em>retornos estabilizados</em></h2>
+    <div class="tl-track">
+      <div class="tl-item reveal">
+        <div class="tl-period">Mes 1–3</div>
+        <div class="tl-content">
+          <h4>Adquisición & Fundación</h4>
+          <p>Cierra el bridge loan. Se adquiere la tierra en $1.5M. Casa Tequila sigue operando — $2,000/mes de ingresos desde el día uno. Title search + Phase I ESA + pre-application meeting con Engineering del condado.</p>
+          <span class="tl-badge">$24K/año ingresos inmediatos</span>
+        </div>
+      </div>
+      <div class="tl-item reveal">
+        <div class="tl-period">Mes 3–6</div>
+        <div class="tl-content">
+          <h4>RFP de Constructores + Pre-Ventas</h4>
+          <p>Lanzamiento del concurso de constructores. Firma del Preferred Builder Agreement con los 2 ganadores. Campaña de pre-ventas con $10,000 de depósito. Objetivo: 20 reservas validadas antes de comenzar infraestructura.</p>
+          <span class="tl-badge">$200,000 en depósitos de pre-venta</span>
+        </div>
+      </div>
+      <div class="tl-item reveal">
+        <div class="tl-period">Mes 6–12</div>
+        <div class="tl-content">
+          <h4>Infraestructura + Primeras Cabañas</h4>
+          <p>Roads, utilities y acometidas instaladas. Primeras 10 cabañas en construcción (6–8 semanas c/u). Inicio de amenidades Fase 1: piscina, racket center, game room. Pre-ventas continúan activamente.</p>
+          <span class="tl-badge">Primeros cierres · capital en recuperación</span>
+        </div>
+      </div>
+      <div class="tl-item reveal">
+        <div class="tl-period">Mes 12–18</div>
+        <div class="tl-content">
+          <h4>Escala + Rental Pool Operativo</h4>
+          <p>30 cabañas terminadas. Rental pool lanzado con mínimo 20 unidades activas. PM + HOA generan $444,300/año. Amenidades completas. Capital del inversionista + retorno preferente cubiertos.</p>
+          <span class="tl-badge">Capital + retorno pref devuelto al inversionista</span>
+        </div>
+      </div>
+      <div class="tl-item reveal">
+        <div class="tl-period">Mes 18–30</div>
+        <div class="tl-content">
+          <h4>Ventas Finales + Estabilización</h4>
+          <p>Cierre de las últimas 50 cabañas. Pool crece a 60–70 unidades activas. Distribución 50/50 del remanente. Zonas B y C se titulan formalmente al inversionista. Evaluación formal de Fase 2 (48 townhomes).</p>
+          <span class="tl-badge">Distribución 50/50 completada · equity residual titulado</span>
+        </div>
+      </div>
+      <div class="tl-item reveal">
+        <div class="tl-period">Año 3–5</div>
+        <div class="tl-content">
+          <h4>Opcionalidad del Resort</h4>
+          <p>Con comunidad validada, absorption history documentada y entitlement R-3 listo, la Zona B se puede desarrollar como resort boutique o venderse como pad-ready parcel a desarrollador hotelero. GSV estimado 48 townhomes: $15.6M–$21.6M.</p>
+          <span class="tl-badge">Equity permanente · opcionalidad de salida total</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PAGE NAV -->
+<div class="page-nav">
+  <div class="container">
+    <div class="page-nav-inner">
+      <a href="inversion.html" class="page-nav-link">
+        <span class="pnl-arrow">←</span>
+        <div><div class="pnl-direction">Anterior</div><div class="pnl-title">Inversión · Proforma · Waterfall</div></div>
+      </a>
+      <a href="contacto.html" class="page-nav-link">
+        <div style="text-align:right"><div class="pnl-direction">Siguiente</div><div class="pnl-title">Galería · Expresar Interés</div></div>
+        <span class="pnl-arrow">→</span>
+      </a>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <a href="index.html" class="footer-brand">Placid <span>Farm</span></a>
+  <ul class="footer-links">
+    <li><a href="concepto.html">Concepto</a></li>
+    <li><a href="producto.html">Producto</a></li>
+    <li><a href="inversion.html">Inversión</a></li>
+    <li><a href="contacto.html#interes">Contacto</a></li>
+  </ul>
+  <div class="footer-meta">
+    <div>BKS-2026-PLF-001 · Mayo 2026</div>
+    <div>Brickstackers Intelligence</div>
+  </div>
+</footer>
+
+<script>
+function toggleNav(){document.querySelector('.nav-links').classList.toggle('open')}
+const obs=new IntersectionObserver((entries)=>{entries.forEach((e,i)=>{if(e.isIntersecting)setTimeout(()=>e.target.classList.add('visible'),(i%4)*80)})},{threshold:0.08,rootMargin:'0px 0px -40px 0px'});
+document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>

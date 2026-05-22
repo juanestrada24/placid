@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Placid Farm — Producto y Financiamiento</title>
+<link rel="stylesheet" href="shared.css">
+<style>
+.amenities-banner{position:relative;height:65vh;overflow:hidden;display:flex;align-items:center;justify-content:center;margin-top:80px}
+.amenities-banner img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.amenities-banner::after{content:'';position:absolute;inset:0;background:rgba(26,18,8,0.68)}
+.amenities-banner-text{position:relative;z-index:2;text-align:center;padding:0 40px}
+.amenities-banner-text h2{font-family:'Cormorant Garamond',serif;font-size:clamp(3rem,6vw,6rem);font-weight:300;color:var(--cream);line-height:0.95}
+.amenities-banner-text h2 em{font-style:italic;color:var(--gold)}
+.amenities-banner-text h2 strong{font-weight:700;display:block}
+.amenities-banner-text p{font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-style:italic;color:rgba(246,238,216,0.55);margin-top:16px}
+.am-grid-wrap{background:var(--ink);padding:3px}
+.am-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:3px}
+.am-tile{background:rgba(26,18,8,0.8);padding:24px 14px;text-align:center;transition:background 0.2s}
+.am-tile:hover{background:var(--sage)}
+.am-icon{font-size:1.5rem;margin-bottom:10px}
+.am-name{font-size:0.68rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--cream);margin-bottom:3px}
+.am-detail{font-size:0.58rem;color:var(--stone);line-height:1.4}
+.am-tile:hover .am-detail{color:rgba(254,252,246,0.75)}
+.budget-section{background:var(--parchment);padding:64px 0}
+.budget-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:3px;margin-top:32px;background:rgba(106,68,35,0.08);border-radius:4px;overflow:hidden}
+.budget-item{background:var(--white);padding:18px 16px}
+.budget-name{font-size:0.72rem;font-weight:500;color:var(--ink);margin-bottom:4px}
+.budget-range{font-family:'DM Mono',monospace;font-size:0.8rem;color:var(--straw)}
+.budget-desc{font-size:0.62rem;color:var(--stone);margin-top:4px}
+.budget-total{background:var(--ink);border-radius:4px;padding:18px 24px;margin-top:14px;display:flex;justify-content:space-between;align-items:center}
+.budget-total-lbl{font-size:0.65rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--stone)}
+.budget-total-val{font-family:'Cormorant Garamond',serif;font-size:1.8rem;font-weight:600;color:var(--gold)}
+/* CABINS */
+.cabins-section{background:var(--white)}
+.cabins-split{display:grid;grid-template-columns:1fr 1fr;min-height:80vh}
+.cabins-gallery{display:grid;grid-template-rows:1fr 1fr}
+.cabin-img{overflow:hidden}
+.cabin-img img{width:100%;height:100%;object-fit:cover;transition:transform 6s ease}
+.cabin-img:hover img{transform:scale(1.04)}
+.cabins-info{background:var(--linen);display:flex;flex-direction:column;justify-content:center;padding:64px}
+.cabins-info h2{font-family:'Cormorant Garamond',serif;font-size:clamp(2rem,3vw,3rem);font-weight:400;color:var(--ink);line-height:1.05;margin:16px 0 18px}
+.cabins-info h2 em{font-style:italic;color:var(--sage)}
+.cabin-specs{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:20px}
+.spec-box{background:var(--white);padding:14px;border-radius:3px;border-left:3px solid var(--sage)}
+.spec-v{font-family:'DM Mono',monospace;font-size:1.2rem;font-weight:500;color:var(--ink)}
+.spec-l{font-size:0.6rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--stone);margin-top:2px}
+.cabin-tiers{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:20px}
+.cabin-tier{border:1px solid rgba(106,68,35,0.12);border-radius:3px;padding:16px}
+.cabin-tier.premium{border-color:var(--straw);background:rgba(200,168,75,0.04)}
+.tier-badge-std{display:inline-block;background:rgba(122,143,90,0.12);color:var(--moss);padding:2px 8px;border-radius:2px;font-size:0.55rem;letter-spacing:0.14em;text-transform:uppercase;font-weight:600;margin-bottom:10px}
+.tier-badge-prm{display:inline-block;background:rgba(200,168,75,0.15);color:var(--straw);padding:2px 8px;border-radius:2px;font-size:0.55rem;letter-spacing:0.14em;text-transform:uppercase;font-weight:600;margin-bottom:10px}
+.tier-price{font-family:'Cormorant Garamond',serif;font-size:2rem;font-weight:600;color:var(--ink)}
+.tier-qty{font-size:0.62rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--stone);margin-top:4px}
+.tier-features{margin-top:10px;list-style:none}
+.tier-features li{font-size:0.7rem;color:var(--bark);padding-left:12px;position:relative;margin-bottom:3px}
+.tier-features li::before{content:'·';position:absolute;left:0;color:var(--sage)}
+.cabin-finishes{display:flex;flex-wrap:wrap;gap:6px}
+.ftag{background:var(--ink);color:var(--cream);padding:4px 11px;border-radius:2px;font-size:0.6rem;letter-spacing:0.1em;text-transform:uppercase}
+/* FINANCING */
+.financing{background:var(--ink);padding:100px 0}
+.financing-models{display:grid;grid-template-columns:1fr 1fr;gap:3px;margin-top:60px;background:rgba(200,168,75,0.12);border-radius:4px;overflow:hidden}
+.fin-model{background:rgba(26,18,8,0.7);padding:40px 36px}
+.fin-model.featured{background:rgba(74,94,53,0.2)}
+.fin-model-badge-rec{display:inline-block;background:rgba(122,143,90,0.2);color:var(--fern);padding:4px 12px;border-radius:2px;font-size:0.6rem;letter-spacing:0.18em;text-transform:uppercase;font-weight:600;margin-bottom:20px}
+.fin-model-badge-alt{display:inline-block;background:rgba(200,168,75,0.15);color:var(--gold);padding:4px 12px;border-radius:2px;font-size:0.6rem;letter-spacing:0.18em;text-transform:uppercase;font-weight:600;margin-bottom:20px}
+.fin-model-title{font-family:'Cormorant Garamond',serif;font-size:1.7rem;font-weight:600;color:var(--cream);margin-bottom:6px}
+.fin-model-sub{font-size:0.75rem;color:var(--stone);margin-bottom:20px;font-style:italic}
+.fin-model-body{font-size:0.82rem;line-height:1.75;color:rgba(246,238,216,0.6);margin-bottom:24px}
+.fin-steps{display:flex;flex-direction:column;gap:12px;margin-bottom:24px}
+.fin-step{display:flex;gap:12px;align-items:flex-start}
+.fin-step-n{width:26px;height:26px;background:rgba(200,168,75,0.15);border:1px solid rgba(200,168,75,0.3);border-radius:2px;display:flex;align-items:center;justify-content:center;font-size:0.65rem;font-weight:700;color:var(--gold);flex-shrink:0;font-family:'DM Mono',monospace}
+.fin-step-c h5{font-size:0.78rem;font-weight:500;color:var(--cream);margin-bottom:2px}
+.fin-step-c p{font-size:0.72rem;color:rgba(246,238,216,0.5)}
+.pros-cons{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.pros,.cons{padding:12px 14px;border-radius:2px}
+.pros{background:rgba(74,94,53,0.15);color:var(--fern)}
+.cons{background:rgba(140,58,32,0.12);color:rgba(200,140,100,0.9)}
+.pros h6,.cons h6{font-size:0.58rem;letter-spacing:0.15em;text-transform:uppercase;font-weight:600;margin-bottom:6px;opacity:0.7}
+.pros li,.cons li{list-style:none;font-size:0.7rem;margin-bottom:3px;padding-left:10px;position:relative}
+.pros li::before{content:'✓';position:absolute;left:0;font-size:0.6rem}
+.cons li::before{content:'!';position:absolute;left:0;font-size:0.6rem}
+.fin-flow{background:rgba(26,18,8,0.5);border-radius:4px;padding:32px;margin-top:40px}
+.fin-flow-title{font-family:'Cormorant Garamond',serif;font-size:1.2rem;color:var(--cream);margin-bottom:24px;text-align:center}
+.flow-steps{display:grid;grid-template-columns:repeat(5,1fr);gap:2px}
+.fs{background:rgba(246,238,216,0.04);padding:14px 10px;text-align:center;position:relative}
+.fs::after{content:'→';position:absolute;right:-8px;top:50%;transform:translateY(-50%);color:var(--sage);font-size:0.75rem;z-index:1}
+.fs:last-child::after{display:none}
+.fs-n{font-family:'Cormorant Garamond',serif;font-size:1.8rem;font-weight:600;color:var(--gold);opacity:0.4;line-height:1}
+.fs-t{font-size:0.62rem;font-weight:500;color:var(--cream);margin-top:4px}
+.fs-d{font-size:0.58rem;color:var(--stone);margin-top:3px;line-height:1.35}
+/* BUILDERS */
+.builders{background:var(--parchment);padding:80px 0}
+.builders-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin:40px 0 32px}
+.builder-card{background:var(--white);border-radius:4px;padding:26px 22px;border:1px solid rgba(106,68,35,0.1);transition:border-color 0.2s}
+.builder-card.preferred{border-color:var(--sage);border-width:2px}
+.builder-badge-pref{display:inline-flex;align-items:center;gap:6px;background:rgba(122,143,90,0.12);color:var(--moss);padding:3px 10px;border-radius:2px;font-size:0.58rem;letter-spacing:0.14em;text-transform:uppercase;font-weight:600;margin-bottom:12px}
+.builder-badge-alt{display:inline-flex;align-items:center;gap:6px;background:rgba(200,168,75,0.12);color:var(--straw);padding:3px 10px;border-radius:2px;font-size:0.58rem;letter-spacing:0.14em;text-transform:uppercase;font-weight:600;margin-bottom:12px}
+.builder-badge-note{display:inline-flex;align-items:center;gap:6px;background:rgba(106,68,35,0.08);color:var(--stone);padding:3px 10px;border-radius:2px;font-size:0.58rem;letter-spacing:0.14em;text-transform:uppercase;font-weight:600;margin-bottom:12px}
+.builder-name{font-family:'Cormorant Garamond',serif;font-size:1.2rem;font-weight:600;color:var(--ink);margin-bottom:4px}
+.builder-loc{font-size:0.7rem;color:var(--stone);margin-bottom:10px}
+.builder-price{font-family:'DM Mono',monospace;font-size:0.9rem;font-weight:500;color:var(--straw);margin-bottom:10px}
+.builder-features{list-style:none}
+.builder-features li{font-size:0.72rem;color:var(--bark);padding-left:14px;position:relative;margin-bottom:4px}
+.builder-features li::before{content:'→';position:absolute;left:0;color:var(--sage);font-size:0.6rem}
+.builder-note{margin-top:10px;padding:10px 12px;background:rgba(122,143,90,0.06);border-radius:2px;font-size:0.7rem;color:var(--moss);font-style:italic}
+.rfp-box{background:var(--ink);border-radius:4px;padding:32px 36px}
+.rfp-box h4{font-family:'Cormorant Garamond',serif;font-size:1.2rem;font-weight:600;color:var(--cream);margin-bottom:20px}
+.rfp-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.rfp-item{display:flex;gap:12px;align-items:flex-start}
+.rfp-n{width:24px;height:24px;background:rgba(200,168,75,0.15);display:flex;align-items:center;justify-content:center;font-size:0.65rem;font-weight:700;color:var(--gold);flex-shrink:0;font-family:'DM Mono',monospace;border-radius:2px}
+.rfp-text h6{font-size:0.72rem;font-weight:500;color:var(--cream);margin-bottom:2px}
+.rfp-text p{font-size:0.68rem;color:var(--stone)}
+@media(max-width:960px){
+  .am-grid{grid-template-columns:repeat(3,1fr)}
+  .budget-grid{grid-template-columns:repeat(2,1fr)}
+  .cabins-split{grid-template-columns:1fr}
+  .cabins-gallery{height:50vw;grid-template-rows:1fr}
+  .cabins-info{padding:40px 24px}
+  .cabin-specs,.cabin-tiers{grid-template-columns:1fr}
+  .financing-models{grid-template-columns:1fr}
+  .builders-grid{grid-template-columns:1fr}
+  .rfp-grid{grid-template-columns:1fr}
+  .flow-steps{grid-template-columns:1fr}
+  .pros-cons{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">Placid <span>Farm</span></a>
+  <ul class="nav-links">
+    <li><a href="index.html">Inicio</a></li>
+    <li><a href="concepto.html">Concepto</a></li>
+    <li><a href="producto.html" class="active">Producto</a></li>
+    <li><a href="inversion.html">Inversión</a></li>
+    <li><a href="estrategia.html">Estrategia</a></li>
+    <li><a href="contacto.html">Galería</a></li>
+    <li><a href="contacto.html#interes" class="nav-cta">Expresar Interés</a></li>
+  </ul>
+  <button class="nav-mobile-toggle" onclick="toggleNav()"><span></span><span></span><span></span></button>
+</nav>
+
+<!-- AMENIDADES BANNER -->
+<div class="amenities-banner">
+  <img src="https://res.cloudinary.com/df9mz9qei/image/upload/v1779245403/6F43A198-E042-4F77-815C-4E5C36736B6B_twcw4d.png" alt="La vida en Placid Farm">
+  <div class="amenities-banner-text">
+    <h2>La vida en<br><strong><em>Placid Farm</em></strong></h2>
+    <p>No es una urbanización. Es una comunidad en la que realmente quieres vivir.</p>
+  </div>
+</div>
+
+<!-- AMENIDADES GRID -->
+<div class="am-grid-wrap">
+  <div class="am-grid">
+    <div class="am-tile"><div class="am-icon">🎾</div><div class="am-name">Tenis</div><div class="am-detail">2 canchas · iluminadas</div></div>
+    <div class="am-tile"><div class="am-icon">🏓</div><div class="am-name">Pickleball</div><div class="am-detail">2 canchas dedicadas</div></div>
+    <div class="am-tile"><div class="am-icon">🎯</div><div class="am-name">Padel</div><div class="am-detail">4 canchas de vidrio</div></div>
+    <div class="am-tile"><div class="am-icon">⚽</div><div class="am-name">Fútbol</div><div class="am-detail">Cancha completa · turf</div></div>
+    <div class="am-tile"><div class="am-icon">🏊</div><div class="am-name">Piscina</div><div class="am-detail">Comunitaria · solárium</div></div>
+    <div class="am-tile"><div class="am-icon">🛶</div><div class="am-name">Kayak</div><div class="am-detail">Circuito en laguna</div></div>
+    <div class="am-tile"><div class="am-icon">⛳</div><div class="am-name">Mini Golf</div><div class="am-detail">9 hoyos · natural</div></div>
+    <div class="am-tile"><div class="am-icon">🎱</div><div class="am-name">Sala Juegos</div><div class="am-detail">Billar · ping pong · arcade</div></div>
+    <div class="am-tile"><div class="am-icon">🌱</div><div class="am-name">Huerta</div><div class="am-detail">Jardines comestibles</div></div>
+    <div class="am-tile"><div class="am-icon">🍋</div><div class="am-name">Huerto</div><div class="am-detail">Cítricos · mango · aguacate</div></div>
+    <div class="am-tile"><div class="am-icon">🦜</div><div class="am-name">Senderos</div><div class="am-detail">3km · birdwatching</div></div>
+    <div class="am-tile"><div class="am-icon">🍽️</div><div class="am-name">Restaurante</div><div class="am-detail">Casa Tequila · abierto hoy</div></div>
+  </div>
+</div>
+
+<!-- BUDGET -->
+<div class="budget-section">
+  <div class="container">
+    <div class="s-label reveal">Presupuesto de Amenidades</div>
+    <h3 class="s-title reveal" style="font-size:2rem">Cada amenidad está en el <em>presupuesto</em><br>— no es promesa futura</h3>
+    <div class="budget-grid reveal">
+      <div class="budget-item"><div class="budget-name">Racket Center</div><div class="budget-range">$500,000</div><div class="budget-desc">4 padel + 2 pickleball + 2 tenis · pro shop · iluminación</div></div>
+      <div class="budget-item"><div class="budget-name">Piscina Comunitaria</div><div class="budget-range">$345,000</div><div class="budget-desc">Construcción + deck + filtración + mobiliario</div></div>
+      <div class="budget-item"><div class="budget-name">Campo de Fútbol</div><div class="budget-range">$220,000</div><div class="budget-desc">Grama sintética certificada + iluminación + tableros</div></div>
+      <div class="budget-item"><div class="budget-name">Game Room</div><div class="budget-range">$65,000</div><div class="budget-desc">Remodelación clubhouse + billar, ping pong, arcade</div></div>
+      <div class="budget-item"><div class="budget-name">Mini Golf 9 Hoyos</div><div class="budget-range">$95,000</div><div class="budget-desc">Diseño natural aprovechando topografía del campo</div></div>
+      <div class="budget-item"><div class="budget-name">Kayak + Senderos</div><div class="budget-range">$53,000</div><div class="budget-desc">Embarcadero + 8 kayaks + señalización 3km</div></div>
+      <div class="budget-item"><div class="budget-name">Greenhouse</div><div class="budget-range">$70,000</div><div class="budget-desc">Estructura 30×60ft + riego + bancadas de cultivo</div></div>
+      <div class="budget-item"><div class="budget-name">Huerta + Landscaping</div><div class="budget-range">$207,000</div><div class="budget-desc">Jardines comestibles + frutales + entradas + áreas comunes</div></div>
+    </div>
+    <div class="budget-total reveal">
+      <span class="budget-total-lbl">Total Presupuesto de Amenidades (incluye contingencia 15%)</span>
+      <span class="budget-total-val">$1,750,000</span>
+    </div>
+  </div>
+</div>
+
+<!-- CABAÑAS -->
+<section class="cabins-section">
+  <div class="cabins-split">
+    <div class="cabins-gallery">
+      <div class="cabin-img"><img src="https://res.cloudinary.com/df9mz9qei/image/upload/v1779245378/IMG_5085_z11yvs.jpg" alt="Cabaña exterior"></div>
+      <div class="cabin-img"><img src="https://res.cloudinary.com/df9mz9qei/image/upload/v1779245378/IMG_5086_rbgsgd.jpg" alt="Cabaña madera"></div>
+    </div>
+    <div class="cabins-info">
+      <div class="s-label">El Producto</div>
+      <h2>Construida para <em>durar</em><br>y generar</h2>
+      <p style="font-size:0.88rem;line-height:1.8;color:var(--bark)">Cumple el Código de Construcción de Florida. Marco de bloque estructural o madera pesada, techo metálico, revestimiento de madera natural, acentos en piedra y concreto. No es un galpón — es un hogar real que genera ingresos cada noche que no estás.</p>
+      <div class="cabin-specs">
+        <div class="spec-box"><div class="spec-v">400–600</div><div class="spec-l">Sq Ft · FL Code</div></div>
+        <div class="spec-box"><div class="spec-v">$95K</div><div class="spec-l">Costo de Construcción</div></div>
+        <div class="spec-box"><div class="spec-v">6–8 sem</div><div class="spec-l">Tiempo de Construcción</div></div>
+        <div class="spec-box"><div class="spec-v">180 mph</div><div class="spec-l">Resistencia Huracanes</div></div>
+      </div>
+      <div class="cabin-tiers">
+        <div class="cabin-tier">
+          <div class="tier-badge-std">Estándar · 65 und.</div>
+          <div class="tier-price">$195,000</div>
+          <div class="tier-qty">Lote + Cabaña · Escritura real</div>
+          <ul class="tier-features">
+            <li>Lote 0.5–0.84 acres fee-simple</li>
+            <li>Cabaña 400–500 sq ft</li>
+            <li>Deck privado + vista campo</li>
+            <li>Acceso completo a amenidades</li>
+          </ul>
+        </div>
+        <div class="cabin-tier premium">
+          <div class="tier-badge-prm">Premium · Vista Lago · 15 und.</div>
+          <div class="tier-price">$220,000</div>
+          <div class="tier-qty">Frente o vista al lago principal · máximo</div>
+          <ul class="tier-features">
+            <li>Cabaña 500–600 sq ft</li>
+            <li>ADR estimado $235 vs $195</li>
+            <li>Flujo neto +$900 vs +$618/mes</li>
+            <li>Cash-on-Cash 21.3% vs 16.5%</li>
+          </ul>
+        </div>
+      </div>
+      <div class="cabin-finishes">
+        <span class="ftag">Madera Natural</span>
+        <span class="ftag">Techo Metálico</span>
+        <span class="ftag">Piedra/Concreto</span>
+        <span class="ftag">Deck Privado</span>
+        <span class="ftag">A/C Mini-Split</span>
+        <span class="ftag">Cocina Completa</span>
+        <span class="ftag">Anti-Huracán</span>
+        <span class="ftag">Smart Home</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FINANCIAMIENTO -->
+<section class="financing">
+  <div class="container">
+    <div class="s-label gold">Modelo de Financiamiento</div>
+    <h2 class="s-title light">El constructor financia la cabaña.<br>El comprador la <em>paga al cierre.</em></h2>
+    <p class="s-body light">El promotor no financia la construcción de cabañas. El riesgo se distribuye entre el constructor (adelanta materiales) y el comprador (cierra con DSCR loan). El promotor pone tierra y amenidades — los activos que crean el valor permanente.</p>
+    <div class="financing-models">
+      <div class="fin-model featured reveal">
+        <div class="fin-model-badge-rec">★ Modelo Recomendado</div>
+        <h3 class="fin-model-title">Preferred Builder Agreement</h3>
+        <p class="fin-model-sub">Exclusividad + precio fijo + pago diferido al cierre</p>
+        <p class="fin-model-body">El promotor selecciona 1–2 constructores por concurso (RFP) y firma un acuerdo de exclusividad por 24 meses. A cambio de volumen garantizado de 50–80 unidades, el constructor acepta pago diferido: 30% al inicio, 70% al cierre del comprador final.</p>
+        <div class="fin-steps">
+          <div class="fin-step"><div class="fin-step-n">1</div><div class="fin-step-c"><h5>RFP a 5–6 constructores Florida</h5><p>Concurso por precio, calidad y términos de pago diferido</p></div></div>
+          <div class="fin-step"><div class="fin-step-n">2</div><div class="fin-step-c"><h5>Preferred Builder Agreement firmado</h5><p>Exclusividad 24 meses · precio fijo $95K · volumen garantizado</p></div></div>
+          <div class="fin-step"><div class="fin-step-n">3</div><div class="fin-step-c"><h5>Comprador firma contrato + $10K depósito</h5><p>Activa la orden de construcción — el constructor inicia con su capital</p></div></div>
+          <div class="fin-step"><div class="fin-step-n">4</div><div class="fin-step-c"><h5>Constructor construye (6–8 semanas)</h5><p>Promotor adelanta solo 30% = $28,500 por unidad como float</p></div></div>
+          <div class="fin-step"><div class="fin-step-n">5</div><div class="fin-step-c"><h5>Comprador cierra con DSCR loan</h5><p>Pago total al constructor. Promotor recupera float. Ciclo: 8–10 semanas</p></div></div>
+        </div>
+        <div class="pros-cons">
+          <div class="pros"><h6>Ventajas</h6><ul><li>Máximo control del diseño</li><li>Precio fijo garantizado</li><li>Constructor asume riesgo materiales</li><li>Descuento volumen 18–22%</li></ul></div>
+          <div class="cons"><h6>Consideraciones</h6><ul><li>RFP + negociación 4–6 semanas</li><li>Constructor debe tener float propio</li><li>Exclusividad limita opciones futuras</li></ul></div>
+        </div>
+      </div>
+      <div class="fin-model reveal">
+        <div class="fin-model-badge-alt">Modelo Complementario</div>
+        <h3 class="fin-model-title">DSCR Buyer Financing</h3>
+        <p class="fin-model-sub">El comprador financia su cabaña basado en el yield, no en su income personal</p>
+        <p class="fin-model-body">El DSCR loan (Debt Service Coverage Ratio) no evalúa el W2 ni los tax returns del comprador — evalúa si los ingresos de la propiedad cubren la hipoteca. Con un DSCR de 2.24× en Placid Farm, el comprador califica automáticamente. Ideal para el perfil del empresario latino.</p>
+        <div class="fin-steps">
+          <div class="fin-step"><div class="fin-step-n">1</div><div class="fin-step-c"><h5>Comprador aplica al DSCR Lender</h5><p>No necesita W2 ni declaraciones — solo el contrato de rental management</p></div></div>
+          <div class="fin-step"><div class="fin-step-n">2</div><div class="fin-step-c"><h5>El lender evalúa el yield del proyecto</h5><p>Renta mensual $2,571 ÷ hipoteca $1,145 = DSCR 2.24× → califica fácilmente</p></div></div>
+          <div class="fin-step"><div class="fin-step-n">3</div><div class="fin-step-c"><h5>Down payment 20% = $39,000–$44,000</h5><p>El 80% restante lo financia el banco basado en el yield del proyecto</p></div></div>
+          <div class="fin-step"><div class="fin-step-n">4</div><div class="fin-step-c"><h5>Pre-aprobación en 48–72 horas</h5><p>Lima One Capital, Kiavi, lenders portfolio locales de Florida</p></div></div>
+          <div class="fin-step"><div class="fin-step-n">5</div><div class="fin-step-c"><h5>Cierre en 21–30 días</h5><p>Más rápido que conventional. Entra al rental pool desde el día del cierre</p></div></div>
+        </div>
+        <div class="pros-cons">
+          <div class="pros"><h6>Ventajas</h6><ul><li>Abre mercado a compradores latinos</li><li>No requiere income documentation</li><li>DSCR 2.24× muy por encima del mínimo</li><li>Cierre en 21–30 días</li></ul></div>
+          <div class="cons"><h6>Consideraciones</h6><ul><li>Tasa 7.5%–8.5% ligeramente superior</li><li>Down payment mínimo 20%</li><li>Solo para investment property</li></ul></div>
+        </div>
+      </div>
+    </div>
+    <div class="fin-flow reveal">
+      <div class="fin-flow-title">Flujo de Capital por Transacción Unitaria</div>
+      <div class="flow-steps">
+        <div class="fs"><div class="fs-n">①</div><div class="fs-t">Depósito</div><div class="fs-d">$10K del comprador activa la construcción</div></div>
+        <div class="fs"><div class="fs-n">②</div><div class="fs-t">Inicio Obra</div><div class="fs-d">Promotor adelanta 30% = $28,500 al constructor</div></div>
+        <div class="fs"><div class="fs-n">③</div><div class="fs-t">Construcción</div><div class="fs-d">6–8 semanas. Constructor financia materiales</div></div>
+        <div class="fs"><div class="fs-n">④</div><div class="fs-t">DSCR Cierre</div><div class="fs-d">Down $39K + Loan $156K = $195K al promotor</div></div>
+        <div class="fs"><div class="fs-n">⑤</div><div class="fs-t">Distribución</div><div class="fs-d">Constructor recibe 70%. Promotor recupera float + margen</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BUILDERS -->
+<section class="builders">
+  <div class="container">
+    <div class="s-label reveal">Preferred Builders</div>
+    <h2 class="s-title reveal">Candidatos al <em>concurso</em><br>de constructores</h2>
+    <p class="s-body reveal">Se seleccionarán 2 constructores vía RFP. Los primeros 3 son candidatos prioritarios por capacidad, ubicación y experiencia en Florida.</p>
+    <div class="builders-grid">
+      <div class="builder-card preferred reveal">
+        <div class="builder-badge-pref">★ Candidato #1</div>
+        <div class="builder-name">Craftsman Tiny Homes</div>
+        <div class="builder-loc">📍 Archer, FL — 90 min de Lake Placid</div>
+        <div class="builder-price">$65K–$85K · con volumen → ~$75K</div>
+        <ul class="builder-features">
+          <li>Empresa familiar fundada 1976 · 50+ años de experiencia</li>
+          <li>Florida Building Code nativo · sin problemas de CO</li>
+          <li>Model Summit 410 sq ft desde $65,500</li>
+          <li>Entrega en 6–8 semanas · el más rápido del mercado</li>
+          <li>El más cercano · costos de movilización mínimos</li>
+        </ul>
+        <div class="builder-note">Capacidad: 5–8 unidades/mes. Ideal como Preferred Builder principal.</div>
+      </div>
+      <div class="builder-card preferred reveal">
+        <div class="builder-badge-pref">★ Candidato #2</div>
+        <div class="builder-name">Florida Made Tiny Homes</div>
+        <div class="builder-loc">📍 Fort Myers, FL — 1h 20min de Lake Placid</div>
+        <div class="builder-price">$70K–$100K · con volumen → ~$85K</div>
+        <ul class="builder-features">
+          <li>Block-built on-site · sin craning ni transport fees</li>
+          <li>Equipo propio · no subcontratistas · control de calidad</li>
+          <li>Shell ADU disponible al ~60% para reducir costo</li>
+          <li>Mínimo 384 sq ft · dentro del rango del proyecto</li>
+          <li>Empresa familiar · 2+ generaciones de experiencia</li>
+        </ul>
+        <div class="builder-note">Excelente para el tier premium con mayor personalización.</div>
+      </div>
+      <div class="builder-card reveal">
+        <div class="builder-badge-alt">Candidato #3</div>
+        <div class="builder-name">Goshen Tiny Homes</div>
+        <div class="builder-loc">📍 Central / South Florida</div>
+        <div class="builder-price">$75K–$110K · con volumen → ~$90K</div>
+        <ul class="builder-features">
+          <li>Especialista exclusivo en ADUs</li>
+          <li>Studio ADU desde $75K turnkey completo</li>
+          <li>Garantía 1 año workmanship + 10 años estructural</li>
+          <li>50+ ADUs completados en Central y South Florida</li>
+        </ul>
+        <div class="builder-note">Candidato para el 30% de unidades premium o como constructor secundario.</div>
+      </div>
+      <div class="builder-card reveal">
+        <div class="builder-badge-note">Alternativa A</div>
+        <div class="builder-name">TEK Construction Group</div>
+        <div class="builder-loc">📍 Saint Cloud, FL — 1h 45min</div>
+        <div class="builder-price">$80K–$120K</div>
+        <ul class="builder-features">
+          <li>50+ ADUs exitosos en Central Florida</li>
+          <li>Contratos precio fijo · sin change orders</li>
+          <li>Showroom físico útil para presentar a compradores</li>
+        </ul>
+      </div>
+      <div class="builder-card reveal">
+        <div class="builder-badge-note">Unidades Premium</div>
+        <div class="builder-name">Mesocore</div>
+        <div class="builder-loc">📍 West Palm Beach, FL</div>
+        <div class="builder-price">$155K–$179K · solo tier premium</div>
+        <ul class="builder-features">
+          <li>180 mph wind rating · supera Cat. 5</li>
+          <li>Instalación en 10 días · el más rápido</li>
+          <li>Solar 6kW incluido + baterías 20kWh</li>
+          <li>Financiamiento propio vía Ocean Capital</li>
+        </ul>
+      </div>
+      <div class="builder-card reveal">
+        <div class="builder-badge-note">Opción Económica</div>
+        <div class="builder-name">Tiny Homes By Design</div>
+        <div class="builder-loc">📍 Florida · Statewide</div>
+        <div class="builder-price">$45K–$75K · mayor margen</div>
+        <ul class="builder-features">
+          <li>100% concreto y acero · máxima resistencia</li>
+          <li>Smart capsules prefabricadas en 3–4 meses</li>
+          <li>La opción de menor precio para maximizar margen</li>
+        </ul>
+      </div>
+    </div>
+    <div class="rfp-box reveal">
+      <h4>Criterios del RFP — Concurso de Constructores</h4>
+      <div class="rfp-grid">
+        <div class="rfp-item"><div class="rfp-n">a</div><div class="rfp-text"><h6>Precio por unidad estándar</h6><p>Target: ≤$95,000 turnkey para modelo de 400–500 sq ft</p></div></div>
+        <div class="rfp-item"><div class="rfp-n">b</div><div class="rfp-text"><h6>Capacidad de volumen</h6><p>Mínimo 5 unidades/mes simultáneas con equipo propio</p></div></div>
+        <div class="rfp-item"><div class="rfp-n">c</div><div class="rfp-text"><h6>Términos de pago diferido</h6><p>30% al inicio / 70% al cierre. Constructor financia su float</p></div></div>
+        <div class="rfp-item"><div class="rfp-n">d</div><div class="rfp-text"><h6>Florida Building Code compliance</h6><p>Certificado de ocupación sin contingencias</p></div></div>
+        <div class="rfp-item"><div class="rfp-n">e</div><div class="rfp-text"><h6>Flexibilidad de diseño</h6><p>2–3 modelos pre-aprobados con variaciones de acabados</p></div></div>
+        <div class="rfp-item"><div class="rfp-n">f</div><div class="rfp-text"><h6>Exclusividad 24 meses</h6><p>Preferred builder agreement con 50–80 unidades garantizadas</p></div></div>
+        <div class="rfp-item"><div class="rfp-n">g</div><div class="rfp-text"><h6>Garantías</h6><p>Mínimo 1 año workmanship + 10 años estructural</p></div></div>
+        <div class="rfp-item"><div class="rfp-n">h</div><div class="rfp-text"><h6>Timeline</h6><p>Primer lote en 90 días. Capacidad de escalar a 10 u/mes en Mes 6</p></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PAGE NAV -->
+<div class="page-nav">
+  <div class="container">
+    <div class="page-nav-inner">
+      <a href="concepto.html" class="page-nav-link">
+        <span class="pnl-arrow">←</span>
+        <div><div class="pnl-direction">Anterior</div><div class="pnl-title">Concepto · Zoning · Zonas</div></div>
+      </a>
+      <a href="inversion.html" class="page-nav-link">
+        <div style="text-align:right"><div class="pnl-direction">Siguiente</div><div class="pnl-title">Inversión · Proforma · Waterfall</div></div>
+        <span class="pnl-arrow">→</span>
+      </a>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <a href="index.html" class="footer-brand">Placid <span>Farm</span></a>
+  <ul class="footer-links">
+    <li><a href="concepto.html">Concepto</a></li>
+    <li><a href="producto.html">Producto</a></li>
+    <li><a href="inversion.html">Inversión</a></li>
+    <li><a href="contacto.html#interes">Contacto</a></li>
+  </ul>
+  <div class="footer-meta">
+    <div>BKS-2026-PLF-001 · Mayo 2026</div>
+    <div>Brickstackers Intelligence</div>
+  </div>
+</footer>
+
+<script>
+function toggleNav(){document.querySelector('.nav-links').classList.toggle('open')}
+const obs=new IntersectionObserver((entries)=>{entries.forEach((e,i)=>{if(e.isIntersecting)setTimeout(()=>e.target.classList.add('visible'),(i%4)*80)})},{threshold:0.08,rootMargin:'0px 0px -40px 0px'});
+document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>

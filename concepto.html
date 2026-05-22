@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Placid Farm — Concepto e Inversión</title>
+<link rel="stylesheet" href="shared.css">
+<style>
+/* GAP DE PRECIO */
+.gap-section{background:var(--linen)}
+.gap-grid{display:grid;grid-template-columns:1fr 1.2fr;gap:72px;align-items:start;margin-top:60px}
+.gap-table-wrap{background:var(--white);border-radius:4px;overflow:hidden;box-shadow:0 4px 24px rgba(26,18,8,0.06)}
+.gap-table-header{background:var(--ink);padding:16px 24px;display:grid;grid-template-columns:2fr 1fr 1fr;gap:16px}
+.gap-th{font-size:0.6rem;font-weight:600;letter-spacing:0.18em;text-transform:uppercase;color:rgba(246,238,216,0.5)}
+.gap-row{display:grid;grid-template-columns:2fr 1fr 1fr;gap:16px;padding:13px 24px;border-bottom:1px solid rgba(106,68,35,0.07);transition:background 0.15s}
+.gap-row:hover{background:var(--parchment)}
+.gap-row:last-child{border-bottom:none}
+.gap-row.placid-row{background:var(--ink)}
+.gap-city{font-size:0.82rem;font-weight:500;color:var(--ink)}
+.gap-row.placid-row .gap-city{color:var(--gold);font-weight:600}
+.gap-dist{font-size:0.75rem;color:var(--stone)}
+.gap-row.placid-row .gap-dist{color:rgba(246,238,216,0.5)}
+.gap-price{font-family:'DM Mono',monospace;font-size:0.8rem;font-weight:500;color:var(--ink);text-align:right}
+.gap-row.placid-row .gap-price{color:var(--gold)}
+.gap-badge{display:inline-block;background:rgba(122,143,90,0.15);color:var(--moss);padding:2px 8px;border-radius:2px;font-size:0.55rem;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;margin-left:6px}
+.gap-insights{display:flex;flex-direction:column;gap:18px}
+.gap-insight{background:var(--white);border-radius:4px;padding:20px 22px;border-left:3px solid var(--sage)}
+.gap-insight h4{font-family:'Cormorant Garamond',serif;font-size:1.05rem;font-weight:600;color:var(--ink);margin-bottom:6px}
+.gap-insight p{font-size:0.78rem;line-height:1.65;color:var(--stone)}
+.gap-indicator{background:var(--ink);border-radius:4px;padding:28px;text-align:center;margin-top:18px}
+.gap-ratio{font-family:'Cormorant Garamond',serif;font-size:4rem;font-weight:600;color:var(--gold);line-height:1}
+.gap-ratio-lbl{font-size:0.62rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--stone);margin-top:6px}
+.gap-ratio-sub{font-size:0.75rem;color:rgba(246,238,216,0.5);margin-top:8px}
+/* PROPERTY FACTS */
+.property-facts{background:var(--white)}
+.facts-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:3px;margin-top:48px;background:var(--linen);border-radius:4px;overflow:hidden}
+.fact-item{background:var(--white);padding:28px 24px;transition:background 0.2s}
+.fact-item:hover{background:var(--parchment)}
+.fact-val{font-family:'Cormorant Garamond',serif;font-size:2.4rem;font-weight:600;color:var(--ink);line-height:1;margin-bottom:6px}
+.fact-lbl{font-size:0.62rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--stone)}
+.listing-box{background:var(--ink);border-radius:4px;padding:32px;margin-top:24px;display:grid;grid-template-columns:1fr 1fr;gap:32px}
+.listing-box-title{font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-weight:600;color:var(--cream);margin-bottom:12px;grid-column:span 2}
+.listing-detail-lbl{font-size:0.58rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--stone);margin-bottom:4px}
+.listing-detail-val{font-size:0.85rem;color:var(--cream);font-weight:500;margin-bottom:14px}
+.listing-detail-val strong{color:var(--gold)}
+/* ZONING */
+.zoning{background:var(--parchment)}
+.zoning-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:3px;margin-top:60px;background:rgba(106,68,35,0.1);border-radius:4px;overflow:hidden}
+.zoning-card{padding:36px 28px;background:var(--white)}
+.zoning-card.gold-card{background:var(--ink)}
+.zoning-card.warn-card{background:var(--linen)}
+.z-icon{font-size:1.8rem;margin-bottom:16px}
+.z-title{font-family:'Cormorant Garamond',serif;font-size:1.35rem;font-weight:600;color:var(--ink);margin-bottom:8px}
+.gold-card .z-title{color:var(--cream)}
+.z-body{font-size:0.78rem;line-height:1.7;color:var(--stone)}
+.gold-card .z-body{color:rgba(246,238,216,0.65)}
+.z-highlight{margin-top:16px;padding:12px 14px;font-size:0.72rem;font-weight:500;border-radius:2px}
+.zoning-card .z-highlight{background:rgba(122,143,90,0.08);color:var(--moss)}
+.gold-card .z-highlight{background:rgba(200,168,75,0.15);color:var(--gold)}
+.warn-card .z-highlight{background:rgba(140,58,32,0.08);color:var(--rust)}
+.zoning-actions{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:48px}
+.z-action{background:var(--white);border-radius:4px;padding:22px;border-top:3px solid var(--sage)}
+.z-action.urgent{border-top-color:var(--rust)}
+.z-action h4{font-family:'Cormorant Garamond',serif;font-size:1rem;font-weight:600;color:var(--ink);margin-bottom:6px}
+.z-action p{font-size:0.75rem;line-height:1.6;color:var(--stone)}
+/* ZONES */
+.zones{background:var(--ink)}
+.zones-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;margin-top:60px;background:rgba(200,168,75,0.12);border-radius:4px;overflow:hidden}
+.zone-card{background:rgba(26,18,8,0.7);padding:40px 32px;position:relative;overflow:hidden;transition:background 0.3s}
+.zone-card:hover{background:rgba(74,94,53,0.25)}
+.zone-letter{font-family:'Cormorant Garamond',serif;font-size:8rem;font-weight:700;color:rgba(200,168,75,0.05);position:absolute;top:-15px;right:10px;line-height:1;pointer-events:none}
+.zone-tag{display:inline-block;background:rgba(200,168,75,0.12);border:1px solid rgba(200,168,75,0.25);color:var(--gold);padding:4px 10px;font-size:0.58rem;letter-spacing:0.18em;text-transform:uppercase;border-radius:2px;margin-bottom:18px}
+.zone-title{font-family:'Cormorant Garamond',serif;font-size:1.8rem;font-weight:600;color:var(--cream);margin-bottom:6px}
+.zone-acres{font-size:0.65rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--stone);margin-bottom:18px}
+.zone-desc{font-size:0.8rem;line-height:1.7;color:rgba(246,238,216,0.6);margin-bottom:20px}
+.zone-items{list-style:none}
+.zone-items li{font-size:0.75rem;color:rgba(246,238,216,0.5);padding-left:16px;position:relative;margin-bottom:7px}
+.zone-items li::before{content:'→';position:absolute;left:0;color:var(--sage);font-size:0.65rem}
+@media(max-width:960px){
+  .gap-grid{grid-template-columns:1fr;gap:32px}
+  .facts-grid{grid-template-columns:repeat(2,1fr)}
+  .listing-box{grid-template-columns:1fr}
+  .listing-box-title{grid-column:auto}
+  .zoning-grid,.zones-grid{grid-template-columns:1fr}
+  .zoning-actions{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">Placid <span>Farm</span></a>
+  <ul class="nav-links">
+    <li><a href="index.html">Inicio</a></li>
+    <li><a href="concepto.html" class="active">Concepto</a></li>
+    <li><a href="producto.html">Producto</a></li>
+    <li><a href="inversion.html">Inversión</a></li>
+    <li><a href="estrategia.html">Estrategia</a></li>
+    <li><a href="contacto.html">Galería</a></li>
+    <li><a href="contacto.html#interes" class="nav-cta">Expresar Interés</a></li>
+  </ul>
+  <button class="nav-mobile-toggle" onclick="toggleNav()"><span></span><span></span><span></span></button>
+</nav>
+
+<!-- PAGE HERO -->
+<div class="page-hero">
+  <div class="container">
+    <div class="s-label gold">Por Qué Aquí · Por Qué Ahora</div>
+    <h1 class="s-title light">El <em>gap</em> de precio que<br>hace posible el deal</h1>
+    <p class="s-body light">La posición estratégica de Lake Placid, la propiedad, y lo que Zoning confirmó oficialmente.</p>
+  </div>
+</div>
+
+<!-- GAP DE PRECIO -->
+<section class="gap-section">
+  <div class="container">
+    <div class="s-label reveal">Análisis de Mercado</div>
+    <h2 class="s-title reveal">A 2.5 horas de 12 millones<br>de personas — al <em>precio correcto</em></h2>
+    <div class="gap-grid">
+      <div class="reveal">
+        <p class="s-body" style="margin-bottom:24px">Florida no es solo sol y playa. Es el estado con el desempeño económico más consistente de la próxima década. Sin impuesto sobre la renta. Flujo permanente de migración de alto poder adquisitivo. Y un mercado secundario interior que aún no descontó su posición estratégica.</p>
+        <div class="gap-table-wrap">
+          <div class="gap-table-header">
+            <div class="gap-th">Mercado</div>
+            <div class="gap-th">Distancia</div>
+            <div class="gap-th" style="text-align:right">Precio Mediano</div>
+          </div>
+          <div class="gap-row"><div class="gap-city">Naples</div><div class="gap-dist">1h 30min</div><div class="gap-price">$600,000</div></div>
+          <div class="gap-row"><div class="gap-city">West Palm Beach</div><div class="gap-dist">1h 15min</div><div class="gap-price">$527,000</div></div>
+          <div class="gap-row"><div class="gap-city">Tampa</div><div class="gap-dist">1h 45min</div><div class="gap-price">$450,000</div></div>
+          <div class="gap-row"><div class="gap-city">Fort Myers</div><div class="gap-dist">1h 15min</div><div class="gap-price">$380,000</div></div>
+          <div class="gap-row"><div class="gap-city">Orlando</div><div class="gap-dist">1h 45min</div><div class="gap-price">$390,000</div></div>
+          <div class="gap-row"><div class="gap-city">Sebring</div><div class="gap-dist">20 minutos</div><div class="gap-price">$235,000</div></div>
+          <div class="gap-row placid-row">
+            <div class="gap-city">Placid Farm <span class="gap-badge">AQUÍ</span></div>
+            <div class="gap-dist">En sitio</div>
+            <div class="gap-price">$195K–$220K</div>
+          </div>
+        </div>
+        <div class="gap-indicator reveal">
+          <div class="gap-ratio">2.7×</div>
+          <div class="gap-ratio-lbl">Diferencial precio vs mercados cercanos</div>
+          <div class="gap-ratio-sub">Naples y WPB cuestan 2.7× más a solo 1–1.5 horas de distancia</div>
+        </div>
+      </div>
+      <div class="gap-insights reveal">
+        <div class="gap-insight">
+          <h4>A 1h 15min de West Palm Beach</h4>
+          <p>WPB registró +10.9% de apreciación en el último año con precio mediano de $527,000. Es junto con Miami la ciudad que más capital de alto nivel está atrayendo en todo el país. Tu cabaña en Placid Farm cuesta menos de la mitad y tiene yield incorporado.</p>
+        </div>
+        <div class="gap-insight">
+          <h4>Posición central estratégica en Florida</h4>
+          <p>No es tierra en medio de la nada. A 2.5 horas de Tampa, Orlando y el sur de Florida, con infraestructura real, hospital regional, aeropuerto Sebring Regional y la Archbold Biological Station — instituto científico de clase mundial a 7 millas.</p>
+        </div>
+        <div class="gap-insight">
+          <h4>10.87% apreciación anual · últimos 10 años</h4>
+          <p>Highlands County está en el top 10% nacional de apreciación inmobiliaria. La convergencia de escasez de tierra, migración constante desde las costas y mejora continua de infraestructura regional explica este desempeño sostenido.</p>
+        </div>
+        <div class="gap-insight" style="border-left-color:var(--straw)">
+          <h4>El listing lo dice sin saberlo</h4>
+          <p>El vendedor pide $1,850,000 por 134 acres con restaurante, clubhouse, 60 golf carts, survey completo e infraestructura existente. $13,800/acre con un negocio operando incluido. En cualquier mercado costero sería impensable.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROPERTY FACTS -->
+<section class="property-facts">
+  <div class="container">
+    <div class="s-label reveal">La Propiedad</div>
+    <h2 class="s-title reveal">3601 Placid Lakes Blvd —<br><em>134 acres</em> de infraestructura lista</h2>
+    <div class="facts-grid reveal">
+      <div class="fact-item"><div class="fact-val">134</div><div class="fact-lbl">Acres totales</div></div>
+      <div class="fact-item"><div class="fact-val">$1.5M</div><div class="fact-lbl">Precio negociado (de $1.85M)</div></div>
+      <div class="fact-item"><div class="fact-val">18</div><div class="fact-lbl">Hoyos de golf · infraestructura existente</div></div>
+      <div class="fact-item"><div class="fact-val">8–9%</div><div class="fact-lbl">Cap rate histórico del restaurante</div></div>
+    </div>
+    <div class="listing-box reveal">
+      <div class="listing-box-title">Detalle del Activo — Lo que el vendedor describe</div>
+      <div>
+        <div class="listing-detail-lbl">Descripción oficial</div>
+        <div class="listing-detail-val">"Former 18 Hole Golf Course with Restaurant, Golf Shop & Maintenance Facility on <strong>139± Acres</strong> priced at <strong>$12,589/acre</strong> for Fast Sale"</div>
+        <div class="listing-detail-lbl">Potencial declarado por el vendedor</div>
+        <div class="listing-detail-val"><strong>201 homesites</strong> + <strong>48 townhomes</strong> en 4 acres (site restaurante)</div>
+        <div class="listing-detail-lbl">Restaurante</div>
+        <div class="listing-detail-val">Arrendado · <strong>$2,000/mes</strong> · Licencia de licor activa</div>
+      </div>
+      <div>
+        <div class="listing-detail-lbl">Infraestructura incluida</div>
+        <div class="listing-detail-val">Clubhouse · Pro shop 3,000 sq ft · Maintenance barn · <strong>60 golf carts</strong> · Parking · Tennis courts</div>
+        <div class="listing-detail-lbl">Survey completado</div>
+        <div class="listing-detail-val">Sherco Inc. · Proyecto H10080713 · <strong>Mayo 2023</strong> · Para Gator Golf Holdings LLC</div>
+        <div class="listing-detail-lbl">Estado actual</div>
+        <div class="listing-detail-val">Golf course cerrado <strong>abril 2025</strong> · En mercado desde <strong>2023</strong> · Sin comprador</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ZONING HIGHLIGHTS -->
+<section class="zoning">
+  <div class="container">
+    <div class="s-label reveal">Respuesta Oficial de Zoning</div>
+    <h2 class="s-title reveal">Lo que <em>Highlands County</em><br>confirmó oficialmente</h2>
+    <p class="s-body reveal">Highlands County Planning & Zoning respondió formalmente nuestra consulta. El resultado es más favorable de lo esperado en aspectos críticos.</p>
+    <div class="zoning-grid">
+      <div class="zoning-card gold-card reveal">
+        <div class="z-icon">⭐</div>
+        <div class="tag gold" style="margin-bottom:14px">Zona B · 4.42 Acres · Gran Noticia</div>
+        <h3 class="z-title">R-3 + Alta Densidad — Ya Aprobado</h3>
+        <p class="z-body">El parcel de 4.42 acres del clubhouse está zonificado R-3 (Multiple-Family + Hotel/Motel) con FLU High Density Residential. Los 48 townhomes o boutique resort de la Fase 2 NO requieren rezoning — son usos permitidos por derecho hoy.</p>
+        <div class="z-highlight">→ Fase 2 sin rezoning = ahorro de 12–18 meses y hasta $100K en proceso de entitlement</div>
+      </div>
+      <div class="zoning-card reveal">
+        <div class="z-icon">📋</div>
+        <div class="tag green" style="margin-bottom:14px">Zona A · 134 Acres · Proceso Estándar</div>
+        <h3 class="z-title">AU + FLU RM — PD Requerido</h3>
+        <p class="z-body">Las 134 acres están en AU (Agricultural) con FLU Medium Density (4–8 u/acre). Para subdividir en lotes residenciales se requiere un Planned Development (PD). El FLU permite hasta 536 unidades. Tu plan de 80 cabañas está muy por debajo del máximo aprobable.</p>
+        <div class="z-highlight">→ 80 cabañas en 67 acres = 1.2 u/acre — 3× inferior al mínimo del FLU. Aprobación fuerte.</div>
+      </div>
+      <div class="zoning-card warn-card reveal">
+        <div class="z-icon">🔍</div>
+        <div class="tag warn" style="margin-bottom:14px">Investigar · Urgente</div>
+        <h3 class="z-title">Open Space en el Plat Original</h3>
+        <p class="z-body">El campo de golf fue "platted as open space" bajo la subdivisión Placid Lakes. Esto requiere investigación urgente del plat original para determinar si existen deed restrictions, easements o derechos de HOA que afecten el desarrollo.</p>
+        <div class="z-highlight">→ Title search antes de hacer oferta — define la viabilidad del proyecto</div>
+      </div>
+    </div>
+    <div class="zoning-actions reveal">
+      <div class="z-action urgent">
+        <h4>Acción #1 — Title Search</h4>
+        <p>Contratar title company para revisar el plat original de Placid Lakes. Determinar restricciones sobre el campo de golf como open space. Costo: $500–$1,500. Tiempo: 5–10 días hábiles.</p>
+        <span class="tag warn" style="margin-top:8px">Antes de la oferta</span>
+      </div>
+      <div class="z-action urgent">
+        <h4>Acción #2 — Pre-Application Engineering</h4>
+        <p>Contactar development@highlandsfl.gov para agendar la reunión de pre-aplicación. Activa revisión coordinada de todos los departamentos del condado y define el roadmap oficial del proceso PD.</p>
+        <span class="tag warn" style="margin-top:8px">Semana 1–2</span>
+      </div>
+      <div class="z-action">
+        <h4>Acción #3 — Pre-Application SFWMD</h4>
+        <p>Reunión con South Florida Water Management District para determinar jurisdicción sobre wetlands y proceso de Environmental Resource Permit. Gratuita, no vinculante, define el roadmap ambiental.</p>
+        <span class="tag green" style="margin-top:8px">Mes 1</span>
+      </div>
+      <div class="z-action">
+        <h4>Acción #4 — Phase I ESA</h4>
+        <p>Environmental Site Assessment para el nivel de arsénico (2.86 mg/kg — sobre SCTL residencial 2.1 mg/kg, muy por debajo del comercial 12 mg/kg). Proceso estándar en conversiones de campos de golf en Florida.</p>
+        <span class="tag green" style="margin-top:8px">Mes 1–2</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ZONES -->
+<section class="zones">
+  <div class="container">
+    <div class="s-label gold">Estrategia de Tierra</div>
+    <h2 class="s-title light">Tres <em>zonas,</em><br>una visión coherente</h2>
+    <div class="zones-grid">
+      <div class="zone-card reveal">
+        <div class="zone-letter">A</div>
+        <div class="zone-tag">Zona A · Residencial</div>
+        <h3 class="zone-title">Los Lotes</h3>
+        <div class="zone-acres">~67 acres · Título Pleno · Fee-Simple</div>
+        <p class="zone-desc">80 cabañas con lote individual titulado. Cada propietario tiene escritura real. Cada cabaña entra al rental pool. La venta de los lotes financia el proyecto y devuelve el capital al inversionista.</p>
+        <ul class="zone-items">
+          <li>65 cabañas estándar × $195,000</li>
+          <li>15 cabañas premium × $220,000 (vista lago)</li>
+          <li>Construcción por Preferred Builder @ $95,000</li>
+          <li>HOA gobierna diseño + rental pool</li>
+          <li>Ventas Zona A devuelven capital + retorno pref.</li>
+        </ul>
+      </div>
+      <div class="zone-card reveal">
+        <div class="zone-letter">B</div>
+        <div class="zone-tag">Zona B · Hub · Ya R-3</div>
+        <h3 class="zone-title">El Hub</h3>
+        <div class="zone-acres">~4.42 acres · R-3 Aprobado · Hotel/Motel Permitido</div>
+        <p class="zone-desc">El parcel más valioso del proyecto. Ya tiene zoning R-3 con FLU High Density — los 48 townhomes o resort de Fase 2 son usos permitidos por derecho hoy. El restaurante opera como non-conforming protegido.</p>
+        <ul class="zone-items">
+          <li>Casa Tequila · $2,000/mes · licencia de licor</li>
+          <li>Racket Center: 4 padel + 2 pickleball + 2 tenis</li>
+          <li>Piscina comunitaria + event lawn</li>
+          <li>Game room: billar, ping pong, arcade</li>
+          <li>Fase 2: 48 townhomes · GSV ~$15.6M–$21.6M</li>
+        </ul>
+      </div>
+      <div class="zone-card reveal">
+        <div class="zone-letter">C</div>
+        <div class="zone-tag">Zona C · Preserva Natural</div>
+        <h3 class="zone-title">La Tierra</h3>
+        <div class="zone-acres">~63 acres · Conservación · Amenidad Permanente</div>
+        <p class="zone-desc">El corazón verde de la comunidad. Humedales, lagunas y fairways convertidos en recreación pasiva y producción agroecológica. Nunca desarrollado. Siempre disfrutado.</p>
+        <ul class="zone-items">
+          <li>Circuito de kayak · laguna principal</li>
+          <li>Senderos naturales + avistamiento de aves</li>
+          <li>Huerto comunitario + jardines comestibles</li>
+          <li>Árboles frutales: cítricos, mango, aguacate</li>
+          <li>Mini golf 9 hoyos · Greenhouse comunitario</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PAGE NAV -->
+<div class="page-nav">
+  <div class="container">
+    <div class="page-nav-inner">
+      <a href="index.html" class="page-nav-link">
+        <span class="pnl-arrow">←</span>
+        <div><div class="pnl-direction">Anterior</div><div class="pnl-title">Inicio · Tendencias</div></div>
+      </a>
+      <a href="producto.html" class="page-nav-link">
+        <div style="text-align:right"><div class="pnl-direction">Siguiente</div><div class="pnl-title">Producto · Cabañas · Constructores</div></div>
+        <span class="pnl-arrow">→</span>
+      </a>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <a href="index.html" class="footer-brand">Placid <span>Farm</span></a>
+  <ul class="footer-links">
+    <li><a href="concepto.html">Concepto</a></li>
+    <li><a href="producto.html">Producto</a></li>
+    <li><a href="inversion.html">Inversión</a></li>
+    <li><a href="contacto.html#interes">Contacto</a></li>
+  </ul>
+  <div class="footer-meta">
+    <div>BKS-2026-PLF-001 · Mayo 2026</div>
+    <div>Brickstackers Intelligence</div>
+  </div>
+</footer>
+
+<script>
+function toggleNav(){document.querySelector('.nav-links').classList.toggle('open')}
+const obs=new IntersectionObserver((entries)=>{entries.forEach((e,i)=>{if(e.isIntersecting)setTimeout(()=>e.target.classList.add('visible'),(i%4)*80)})},{threshold:0.08,rootMargin:'0px 0px -40px 0px'});
+document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>

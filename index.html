@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Placid Farm — Memorando de Inversión</title>
+<link rel="stylesheet" href="shared.css">
+<style>
+/* HERO */
+.hero{position:relative;height:100vh;min-height:700px;overflow:hidden;display:flex;align-items:flex-end}
+.hero-bg{position:absolute;inset:0}
+.hero-bg img{width:100%;height:100%;object-fit:cover;transform:scale(1.05);animation:slowzoom 20s ease-in-out infinite alternate}
+.hero-bg::after{content:'';position:absolute;inset:0;background:linear-gradient(160deg,rgba(26,18,8,0.3) 0%,rgba(26,18,8,0.15) 35%,rgba(26,18,8,0.7) 75%,rgba(26,18,8,0.92) 100%)}
+.hero-content{position:relative;z-index:2;width:100%;padding:0 72px 80px;display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:flex-end}
+.hero-eyebrow{display:inline-flex;align-items:center;gap:10px;margin-bottom:20px}
+.hero-eyebrow-dot{width:6px;height:6px;border-radius:50%;background:var(--gold);animation:blink 2s infinite}
+.hero-eyebrow-text{font-size:0.62rem;font-weight:500;letter-spacing:0.28em;text-transform:uppercase;color:var(--gold)}
+.hero-title{font-family:'Cormorant Garamond',serif;font-size:clamp(4.5rem,9vw,10rem);font-weight:300;line-height:0.88;color:var(--cream);margin-bottom:8px;letter-spacing:-0.02em}
+.hero-title strong{font-weight:700;display:block}
+.hero-title em{font-style:italic;color:var(--gold)}
+.hero-sub{font-family:'Cormorant Garamond',serif;font-size:1.15rem;font-style:italic;color:rgba(246,238,216,0.55);margin-bottom:36px}
+.hero-location{font-size:0.65rem;font-weight:500;letter-spacing:0.2em;text-transform:uppercase;color:rgba(246,238,216,0.4);display:flex;align-items:center;gap:10px}
+.hero-location::before{content:'';width:28px;height:1px;background:rgba(246,238,216,0.3)}
+.hero-right{display:flex;flex-direction:column;align-items:flex-end;gap:24px}
+.hero-stats{display:grid;grid-template-columns:repeat(2,1fr);gap:2px;width:100%}
+.hero-stat{background:rgba(26,18,8,0.5);backdrop-filter:blur(8px);border:1px solid rgba(200,168,75,0.15);padding:20px 18px;text-align:center}
+.hero-stat-val{font-family:'Cormorant Garamond',serif;font-size:2.4rem;font-weight:600;color:var(--gold);line-height:1}
+.hero-stat-lbl{font-size:0.58rem;letter-spacing:0.18em;text-transform:uppercase;color:rgba(246,238,216,0.45);margin-top:5px}
+.hero-actions{display:flex;gap:10px;width:100%}
+.hero-actions .btn-prim,.hero-actions .btn-ghost{flex:1}
+/* MANIFESTO */
+.manifesto{background:var(--ink);padding:120px 0;overflow:hidden;position:relative}
+.manifesto::before{content:'';position:absolute;top:-150px;right:-150px;width:500px;height:500px;border-radius:50%;background:radial-gradient(circle,rgba(74,94,53,0.1) 0%,transparent 70%)}
+.manifesto-grid{display:grid;grid-template-columns:1fr 1.1fr;gap:80px;align-items:center}
+.manifesto-img{position:relative;height:560px;border-radius:4px;overflow:hidden}
+.manifesto-img img{width:100%;height:100%;object-fit:cover;filter:brightness(0.85)}
+.manifesto-img-tag{position:absolute;bottom:24px;left:24px;background:rgba(26,18,8,0.8);backdrop-filter:blur(8px);padding:8px 16px;border-radius:2px;font-size:0.6rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--gold);font-weight:500}
+.manifesto-quote{margin-top:40px;border-left:2px solid var(--sage);padding-left:24px}
+.manifesto-quote p{font-family:'Cormorant Garamond',serif;font-size:1.2rem;font-style:italic;color:rgba(246,238,216,0.65);line-height:1.7;font-weight:300}
+/* TRENDS */
+.trends{background:var(--parchment)}
+.trends-intro{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start;margin-bottom:64px}
+.trends-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:3px;background:rgba(106,68,35,0.1);border-radius:4px;overflow:hidden}
+.trend-card{background:var(--white);padding:36px 28px;position:relative;overflow:hidden;transition:background 0.3s}
+.trend-card:hover{background:var(--ink)}
+.trend-card:hover .trend-title{color:var(--cream)}
+.trend-card:hover .trend-body{color:rgba(246,238,216,0.6)}
+.trend-num{font-family:'Cormorant Garamond',serif;font-size:6rem;font-weight:700;color:rgba(106,68,35,0.05);position:absolute;top:-10px;right:12px;line-height:1;pointer-events:none}
+.trend-icon-bg{width:52px;height:52px;background:var(--linen);border-radius:6px;display:flex;align-items:center;justify-content:center;margin-bottom:20px;font-size:1.4rem}
+.trend-title{font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:600;color:var(--ink);margin-bottom:10px;line-height:1.2;transition:color 0.3s}
+.trend-body{font-size:0.8rem;line-height:1.7;color:var(--stone);transition:color 0.3s;margin-bottom:16px}
+.trend-stat-val{font-family:'DM Mono',monospace;font-size:1.4rem;font-weight:500;color:var(--straw)}
+.trend-stat-lbl{font-size:0.62rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--stone);margin-top:2px}
+/* FINQUITA */
+.finquita{background:var(--ink);padding:0}
+.finquita-split{display:grid;grid-template-columns:1fr 1fr;min-height:80vh}
+.finquita-img{position:relative;overflow:hidden}
+.finquita-img img{width:100%;height:100%;object-fit:cover;filter:brightness(0.7)}
+.finquita-img-overlay{position:absolute;inset:0;background:linear-gradient(to right,transparent 60%,var(--ink) 100%)}
+.finquita-text{display:flex;flex-direction:column;justify-content:center;padding:80px 64px}
+.finquita-items{display:flex;flex-direction:column;gap:16px;margin-top:32px}
+.fi-item{display:flex;gap:16px;align-items:flex-start}
+.fi-dot{width:8px;height:8px;border-radius:50%;background:var(--sage);margin-top:7px;flex-shrink:0}
+.fi-text{font-size:0.88rem;line-height:1.65;color:rgba(246,238,216,0.7)}
+.fi-text strong{color:var(--cream);font-weight:500}
+/* NEXT PAGE CTA */
+.next-cta{background:var(--ink);padding:64px 0;border-top:1px solid rgba(200,168,75,0.1)}
+.next-cta-inner{display:flex;justify-content:space-between;align-items:center}
+.next-cta-text h3{font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:400;color:var(--cream)}
+.next-cta-text h3 em{font-style:italic;color:var(--gold)}
+.next-cta-text p{font-size:0.78rem;color:var(--stone);margin-top:6px}
+/* RESPONSIVE */
+@media(max-width:960px){
+  .hero-content{grid-template-columns:1fr;padding:0 24px 48px}
+  .hero-right{align-items:flex-start;width:100%}
+  .manifesto-grid{grid-template-columns:1fr;gap:40px}
+  .trends-intro{grid-template-columns:1fr;gap:32px}
+  .trends-cards{grid-template-columns:1fr}
+  .finquita-split{grid-template-columns:1fr}
+  .finquita-img{height:50vw}
+  .finquita-text{padding:48px 24px}
+  .next-cta-inner{flex-direction:column;gap:20px;text-align:center}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="nav-logo">Placid <span>Farm</span></a>
+  <ul class="nav-links">
+    <li><a href="index.html" class="active">Inicio</a></li>
+    <li><a href="concepto.html">Concepto</a></li>
+    <li><a href="producto.html">Producto</a></li>
+    <li><a href="inversion.html">Inversión</a></li>
+    <li><a href="estrategia.html">Estrategia</a></li>
+    <li><a href="contacto.html">Galería</a></li>
+    <li><a href="contacto.html#interes" class="nav-cta">Expresar Interés</a></li>
+  </ul>
+  <button class="nav-mobile-toggle" onclick="toggleNav()">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg">
+    <img src="https://res.cloudinary.com/df9mz9qei/image/upload/v1779245383/IMG_4140_bazkec.webp" alt="Placid Farm aerial">
+  </div>
+  <div class="hero-content">
+    <div class="hero-left">
+      <div class="hero-eyebrow">
+        <div class="hero-eyebrow-dot"></div>
+        <span class="hero-eyebrow-text">Memorando de Inversión · BKS-2026-PLF-001</span>
+      </div>
+      <h1 class="hero-title">
+        Placid
+        <strong><em>Farm</em></strong>
+      </h1>
+      <p class="hero-sub">Tu pedacito de naturaleza en Florida.</p>
+      <div class="hero-location">Lake Placid, Highlands County · Florida · 134 Acres</div>
+    </div>
+    <div class="hero-right">
+      <div class="hero-stats">
+        <div class="hero-stat"><div class="hero-stat-val">5.2×</div><div class="hero-stat-lbl">MOIC Total</div></div>
+        <div class="hero-stat"><div class="hero-stat-val">12%</div><div class="hero-stat-lbl">Retorno Pref.</div></div>
+        <div class="hero-stat"><div class="hero-stat-val">$1.5M</div><div class="hero-stat-lbl">Capital Buscado</div></div>
+        <div class="hero-stat"><div class="hero-stat-val">16.5%</div><div class="hero-stat-lbl">Margen Desarrollo</div></div>
+      </div>
+      <div class="hero-actions">
+        <a href="inversion.html" class="btn-prim">Ver la Oferta →</a>
+        <a href="contacto.html" class="btn-ghost">Ver Galería</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MANIFESTO -->
+<section class="manifesto">
+  <div class="container">
+    <div class="manifesto-grid">
+      <div class="manifesto-img reveal">
+        <img src="https://res.cloudinary.com/df9mz9qei/image/upload/v1779245403/6E2DB016-7008-4F9B-8170-4D4B00F80FEC_gxshcb.png" alt="Jardín comunitario">
+        <div class="manifesto-img-tag">Lake Placid, Florida · 134 Acres · Disponible</div>
+      </div>
+      <div class="reveal">
+        <div class="s-label gold">El Concepto</div>
+        <h2 class="s-title light">Un campo de golf cerrado,<br><em>reimaginado</em> como comunidad</h2>
+        <p class="s-body light">Placid Lakes Country Club cerró sus fairways en abril de 2025. Lo que queda son 134 acres de canopy de robles maduros, lagunas naturales, un restaurante en operación con licencia de licor, e infraestructura que la mayoría de desarrolladores gastan millones en construir desde cero.</p>
+        <p class="s-body light" style="margin-top:16px">Placid Farm es la conversión de este activo dormido en una comunidad agro-residencial de naturaleza — donde las familias son dueñas de tierra real, las cabañas generan ingresos reales, y el paisaje mismo se convierte en el estilo de vida.</p>
+        <div class="manifesto-quote">
+          <p>"El mismo acre puede valer $20K como tierra rural, $150K como homesite, o millones si se convierte en el corazón experiencial de un proyecto. Lo que cambia es la estructura narrativa y económica que lo rodea."</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TENDENCIAS -->
+<section class="trends">
+  <div class="container">
+    <div class="trends-intro">
+      <div class="reveal">
+        <div class="s-label">El Momento</div>
+        <h2 class="s-title">Dos megatendencias<br>que <em>confluyen</em></h2>
+      </div>
+      <div class="reveal">
+        <p class="s-body">El agroturismo y el wellness travel no son modas pasajeras — son la reconfiguración permanente de cómo las personas quieren vivir y vacacionarse. Placid Farm está en la intersección exacta de ambas, más el anhelo cultural latino de tener su propia tierra.</p>
+      </div>
+    </div>
+    <div class="trends-cards">
+      <div class="trend-card reveal">
+        <div class="trend-num">1</div>
+        <div class="trend-icon-bg">🌾</div>
+        <div class="tag sage" style="margin-bottom:14px">Agroturismo</div>
+        <h3 class="trend-title">El campo vuelve a ser destino</h3>
+        <p class="trend-body">La demanda de experiencias rurales auténticas, gastronomía de origen y contacto directo con la naturaleza está transformando el turismo. El farm-to-table dejó de ser concepto y se convirtió en el estilo de vida más aspiracional de la década.</p>
+        <div style="border-top:1px solid rgba(106,68,35,0.1);padding-top:16px">
+          <div class="trend-stat-val">$81.2B</div>
+          <div class="trend-stat-lbl">Mercado global 2025 · CAGR 10.76% hasta 2034</div>
+        </div>
+      </div>
+      <div class="trend-card reveal">
+        <div class="trend-num">2</div>
+        <div class="trend-icon-bg">🧘</div>
+        <div class="tag sage" style="margin-bottom:14px">Wellness Travel</div>
+        <h3 class="trend-title">El lujo es naturaleza y balance</h3>
+        <p class="trend-body">El turismo de wellness superó $1.15 billones en 2025 y crece al 12.4% anual. La pandemia aceleró la búsqueda de destinos que ofrezcan desconexión real, aire libre y alimentos genuinos. El retiro rural desplazó al spa urbano como aspiración premium.</p>
+        <div style="border-top:1px solid rgba(106,68,35,0.1);padding-top:16px">
+          <div class="trend-stat-val">12.4%</div>
+          <div class="trend-stat-lbl">CAGR wellness tourism 2025–2033 · $2.9T proyectado</div>
+        </div>
+      </div>
+      <div class="trend-card reveal">
+        <div class="trend-num">3</div>
+        <div class="trend-icon-bg">🏡</div>
+        <div class="tag sage" style="margin-bottom:14px">La Finquita</div>
+        <h3 class="trend-title">El anhelo latino que no se olvida</h3>
+        <p class="trend-body">Para los más de 62 millones de hispanos en Estados Unidos, la finca de fin de semana no es un lujo abstracto — es una necesidad cultural profunda. El 64% de compradores internacionales en South Florida son latinoamericanos.</p>
+        <div style="border-top:1px solid rgba(106,68,35,0.1);padding-top:16px">
+          <div class="trend-stat-val">64%</div>
+          <div class="trend-stat-lbl">De compradores internacionales en S. Florida son latinos</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LA FINQUITA -->
+<section class="finquita">
+  <div class="finquita-split">
+    <div class="finquita-img">
+      <img src="https://res.cloudinary.com/df9mz9qei/image/upload/v1779245403/1FCBB779-ECE3-4822-A95D-47811BF994D3_o0jhbz.png" alt="Jardín natural">
+      <div class="finquita-img-overlay"></div>
+    </div>
+    <div class="finquita-text">
+      <div class="s-label gold">Para el Latino en Florida</div>
+      <h2 class="s-title light">La <em>finquita</em><br>que siempre soñaste</h2>
+      <p class="s-body light">No importa si eras de Bogotá, Medellín, Caracas, Ciudad de México o San José. La casa de campo a las afueras, ese lugar donde el tiempo corre diferente — es el lujo más genuino de nuestra cultura. Placid Farm nació exactamente para eso.</p>
+      <div class="finquita-items">
+        <div class="fi-item"><div class="fi-dot"></div><div class="fi-text"><strong>Tu pedacito de tierra en Florida</strong> — con escritura real, lote propio, cabaña que se paga sola</div></div>
+        <div class="fi-item"><div class="fi-dot"></div><div class="fi-text"><strong>Escape de la rutina urbana</strong> — a 2.5 horas de 12 millones de personas pero en otro mundo completamente</div></div>
+        <div class="fi-item"><div class="fi-dot"></div><div class="fi-text"><strong>Punto de encuentro familiar</strong> — deportes, naturaleza, huerta, kayak, restaurante. Todo en un solo lugar</div></div>
+        <div class="fi-item"><div class="fi-dot"></div><div class="fi-text"><strong>La alcancía familiar</strong> — tierra en Florida que aprecia 10.87% anual y genera renta cuando no la usas</div></div>
+        <div class="fi-item"><div class="fi-dot"></div><div class="fi-text"><strong>Farm-to-table real</strong> — huertas que son jardines comestibles, árboles frutales, aves, lagunas. Naturaleza como experiencia, no como decoración</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- NEXT PAGE CTA -->
+<div class="next-cta">
+  <div class="container">
+    <div class="next-cta-inner">
+      <div class="next-cta-text">
+        <h3>¿Por qué <em>Lake Placid</em> y esta propiedad?</h3>
+        <p>El gap de precio · La posición estratégica · Lo que confirmó Zoning</p>
+      </div>
+      <a href="concepto.html" class="btn-prim">Explorar el Concepto →</a>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <a href="index.html" class="footer-brand">Placid <span>Farm</span></a>
+  <ul class="footer-links">
+    <li><a href="concepto.html">Concepto</a></li>
+    <li><a href="producto.html">Producto</a></li>
+    <li><a href="inversion.html">Inversión</a></li>
+    <li><a href="contacto.html#interes">Contacto</a></li>
+  </ul>
+  <div class="footer-meta">
+    <div>BKS-2026-PLF-001 · Mayo 2026</div>
+    <div>Brickstackers Intelligence · Mesa de Capital</div>
+  </div>
+</footer>
+
+<script>
+function toggleNav(){
+  document.querySelector('.nav-links').classList.toggle('open');
+}
+const obs=new IntersectionObserver((entries)=>{
+  entries.forEach((e,i)=>{
+    if(e.isIntersecting){
+      setTimeout(()=>e.target.classList.add('visible'),(i%4)*80);
+    }
+  });
+},{threshold:0.08,rootMargin:'0px 0px -40px 0px'});
+document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>

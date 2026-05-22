@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Placid Farm — Inversión y Retornos</title>
+<link rel="stylesheet" href="shared.css">
+<style>
+.economics{background:var(--ink);padding:100px 0}
+.econ-layout{display:grid;grid-template-columns:1fr 1.1fr;gap:64px;margin-top:60px;align-items:start}
+.cashflow-card{border:1px solid rgba(200,168,75,0.15);border-radius:4px;overflow:hidden}
+.cf-head{background:var(--sage);padding:20px 28px;display:flex;justify-content:space-between;align-items:center}
+.cf-head h3{font-family:'Cormorant Garamond',serif;font-size:1.1rem;color:var(--white)}
+.cf-price{font-family:'DM Mono',monospace;font-size:1.4rem;color:var(--white)}
+.cf-row{display:flex;justify-content:space-between;padding:13px 28px;border-bottom:1px solid rgba(200,168,75,0.07)}
+.cf-row.pos{background:rgba(122,143,90,0.08)}
+.cf-row.total-row{background:rgba(200,168,75,0.1);border-top:1px solid rgba(200,168,75,0.2)}
+.cf-lbl{font-size:0.78rem;color:rgba(246,238,216,0.6)}
+.cf-val{font-family:'DM Mono',monospace;font-size:0.84rem;color:var(--cream)}
+.cf-val.neg{color:#E08080}
+.cf-val.gold{color:var(--gold);font-size:1.05rem;font-weight:600}
+.econ-right h3{font-family:'Cormorant Garamond',serif;font-size:1.5rem;color:var(--cream);margin-bottom:10px}
+.econ-right p{font-size:0.82rem;line-height:1.8;color:rgba(246,238,216,0.55);margin-bottom:24px}
+.returns-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:20px}
+.ret-card{background:rgba(246,238,216,0.04);border:1px solid rgba(200,168,75,0.15);border-radius:4px;padding:22px 16px;text-align:center;transition:background 0.2s}
+.ret-card:hover{background:rgba(122,143,90,0.12)}
+.ret-val{font-family:'Cormorant Garamond',serif;font-size:2.8rem;font-weight:600;color:var(--gold);line-height:1}
+.ret-lbl{font-size:0.6rem;letter-spacing:0.16em;text-transform:uppercase;color:var(--stone);margin-top:5px}
+.pitch-card{background:rgba(74,94,53,0.15);border:1px solid rgba(122,143,90,0.2);border-radius:4px;padding:22px 26px}
+.pitch-card p{font-family:'Cormorant Garamond',serif;font-size:1.05rem;font-style:italic;color:var(--cream);line-height:1.75}
+.econ-tiers{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:40px}
+.econ-tier{border-radius:4px;overflow:hidden}
+.econ-tier-head{padding:14px 20px;display:flex;justify-content:space-between;align-items:center}
+.econ-tier-head.std{background:var(--sage)}
+.econ-tier-head.prm{background:var(--straw)}
+.econ-tier-head h4{font-size:0.7rem;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:var(--white)}
+.econ-tier-head span{font-family:'DM Mono',monospace;font-size:1rem;color:var(--white)}
+.econ-tier-body{background:rgba(246,238,216,0.04);border:1px solid rgba(200,168,75,0.1);border-top:none;padding:14px 20px}
+.econ-tier-row{display:flex;justify-content:space-between;padding:5px 0;font-size:0.75rem}
+.econ-tier-row span:first-child{color:rgba(246,238,216,0.5)}
+.econ-tier-row span:last-child{font-family:'DM Mono',monospace;color:var(--cream)}
+.econ-tier-row.hl span:last-child{color:var(--gold);font-weight:600}
+/* CAPEX */
+.capex-section{background:var(--linen);padding:80px 0}
+.capex-visual{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center;margin-top:48px}
+.capex-chart{background:var(--ink);border-radius:4px;padding:36px}
+.capex-chart-title{font-family:'Cormorant Garamond',serif;font-size:1.1rem;color:var(--cream);margin-bottom:24px;text-align:center}
+.capex-bar-group{display:flex;flex-direction:column;gap:18px}
+.capex-bar-lbl{display:flex;justify-content:space-between;font-size:0.68rem;color:rgba(246,238,216,0.55);margin-bottom:6px}
+.capex-bar-track{height:10px;background:rgba(246,238,216,0.08);border-radius:4px;overflow:hidden}
+.capex-bar-fill{height:100%;border-radius:4px;transition:width 1.2s ease}
+.capex-bar-fill.tuyo{background:linear-gradient(to right,var(--sage),var(--fern))}
+.capex-bar-fill.flujo{background:linear-gradient(to right,rgba(74,94,53,0.5),rgba(74,94,53,0.2))}
+.capex-bar-fill.comp{background:linear-gradient(to right,rgba(200,168,75,0.3),rgba(200,168,75,0.1))}
+.capex-key{margin-top:20px;display:flex;flex-direction:column;gap:8px}
+.capex-key-item{display:flex;align-items:center;gap:10px;font-size:0.68rem;color:rgba(246,238,216,0.5)}
+.capex-key-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
+.capex-summary{display:flex;flex-direction:column;gap:14px}
+.csi{background:var(--white);border-radius:4px;padding:18px 22px;border-left:4px solid var(--sage)}
+.csi.hl{border-left-color:var(--straw);background:var(--ink)}
+.csi.hl .csi-lbl{color:var(--stone)}
+.csi.hl .csi-val{color:var(--gold)}
+.csi.hl .csi-desc{color:rgba(246,238,216,0.45)}
+.csi-lbl{font-size:0.6rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--stone);margin-bottom:4px}
+.csi-val{font-family:'Cormorant Garamond',serif;font-size:1.7rem;font-weight:600;color:var(--ink)}
+.csi-desc{font-size:0.72rem;color:var(--stone);margin-top:4px;line-height:1.5}
+/* FINANCIAL TABS */
+.financial{background:var(--white);padding:100px 0}
+.fin-panel.active{display:grid;grid-template-columns:1fr 1.8fr;gap:48px;align-items:start}
+.fin-hero{background:var(--ink);border-radius:4px;padding:36px 24px;text-align:center}
+.fin-moic{font-family:'Cormorant Garamond',serif;font-size:5.5rem;font-weight:600;color:var(--gold);line-height:1}
+.fin-moic-lbl{font-size:0.6rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--stone);margin:6px 0 20px}
+.fin-irr{font-family:'Cormorant Garamond',serif;font-size:2rem;color:var(--cream)}
+.fin-irr-lbl{font-size:0.6rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--stone)}
+/* WATERFALL */
+.waterfall{background:var(--linen);padding:100px 0}
+.wf-layout{display:grid;grid-template-columns:1fr 1fr;gap:64px;margin-top:60px}
+.wf-steps{display:flex;flex-direction:column;gap:16px}
+.wf-step{display:flex;gap:18px;align-items:flex-start}
+.wf-n{width:32px;height:32px;background:var(--ink);border-radius:2px;display:flex;align-items:center;justify-content:center;font-size:0.75rem;font-weight:700;color:var(--gold);flex-shrink:0;font-family:'DM Mono',monospace}
+.wf-c h5{font-size:0.84rem;font-weight:500;color:var(--ink);margin-bottom:2px}
+.wf-c p{font-size:0.75rem;color:var(--stone)}
+.wf-total{background:var(--ink);border-radius:4px;padding:26px;margin-top:20px}
+.wf-total-row{display:flex;justify-content:space-between;padding:7px 0}
+.wf-total-row:last-child{border-top:1px solid rgba(200,168,75,0.2);padding-top:14px;margin-top:6px}
+.wf-total-lbl{font-size:0.68rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--stone)}
+.wf-total-val{font-family:'DM Mono',monospace;color:var(--straw)}
+.wf-total-val.big{font-family:'Cormorant Garamond',serif;font-size:1.8rem;font-weight:600}
+.wf-equity-right h3{font-family:'Cormorant Garamond',serif;font-size:1.5rem;color:var(--ink);margin-bottom:8px}
+.wf-equity-right p{font-size:0.82rem;line-height:1.75;color:var(--bark);margin-bottom:16px}
+.equity-source{background:var(--white);border-radius:4px;padding:16px 18px;display:flex;justify-content:space-between;align-items:center;border-left:4px solid var(--sage);margin-bottom:10px}
+.equity-source.zona-b{border-left-color:var(--straw)}
+.equity-source.zona-c{border-left-color:var(--water)}
+.es-info h5{font-family:'Cormorant Garamond',serif;font-size:0.95rem;font-weight:600;color:var(--ink);margin-bottom:2px}
+.es-info p{font-size:0.7rem;color:var(--stone)}
+.es-val{font-family:'Cormorant Garamond',serif;font-size:1.2rem;font-weight:600;color:var(--ink);white-space:nowrap}
+.equity-total{background:var(--ink);border-radius:4px;padding:18px 22px;display:flex;justify-content:space-between;align-items:center}
+.equity-total span:first-child{font-size:0.65rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--stone)}
+.equity-total span:last-child{font-family:'Cormorant Garamond',serif;font-size:1.8rem;font-weight:600;color:var(--gold)}
+.moic-box{background:var(--ink);border-radius:4px;padding:24px 28px;margin-top:12px;text-align:center}
+.moic-big{font-family:'Cormorant Garamond',serif;font-size:4rem;font-weight:600;color:var(--gold);line-height:1}
+.moic-lbl{font-size:0.62rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--stone);margin-top:6px}
+.moic-sub{font-size:0.78rem;color:rgba(246,238,216,0.45);margin-top:8px}
+/* CAPITAL STRUCTURE */
+.capital-structure{background:var(--white);padding:80px 0}
+.cs-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:3px;margin-top:48px;background:var(--linen);border-radius:4px;overflow:hidden}
+.cs-item{background:var(--white);padding:28px 24px}
+.cs-item.dark{background:var(--ink)}
+.cs-lbl{font-size:0.6rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--stone);margin-bottom:8px}
+.cs-item.dark .cs-lbl{color:rgba(246,238,216,0.45)}
+.cs-val{font-family:'Cormorant Garamond',serif;font-size:2rem;font-weight:600;color:var(--ink);margin-bottom:4px}
+.cs-item.dark .cs-val{color:var(--gold)}
+.cs-desc{font-size:0.75rem;color:var(--stone);line-height:1.5}
+.cs-item.dark .cs-desc{color:rgba(246,238,216,0.45)}
+.structure-box{background:var(--ink);border-radius:4px;padding:32px;margin-top:24px;display:grid;grid-template-columns:1fr 1fr;gap:24px}
+.sb-title{font-family:'Cormorant Garamond',serif;font-size:1.1rem;color:var(--cream);margin-bottom:14px;grid-column:span 2}
+.sb-row{display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid rgba(200,168,75,0.08);font-size:0.8rem}
+.sb-row:last-child{border-bottom:none}
+.sb-row span:first-child{color:rgba(246,238,216,0.55)}
+.sb-row span:last-child{font-family:'DM Mono',monospace;color:var(--cream);font-weight:500}
+.sb-row.hl span:last-child{color:var(--gold)}
+@media(max-width:960px){
+  .econ-layout,.capex-visual,.wf-layout,.structure-box{grid-template-columns:1fr;gap:32px}
+  .fin-panel.active{grid-template-columns:1fr}
+  .returns-grid,.econ-tiers,.cs-grid{grid-template-columns:1fr 1fr}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">Placid <span>Farm</span></a>
+  <ul class="nav-links">
+    <li><a href="index.html">Inicio</a></li>
+    <li><a href="concepto.html">Concepto</a></li>
+    <li><a href="producto.html">Producto</a></li>
+    <li><a href="inversion.html" class="active">Inversión</a></li>
+    <li><a href="estrategia.html">Estrategia</a></li>
+    <li><a href="contacto.html">Galería</a></li>
+    <li><a href="contacto.html#interes" class="nav-cta">Expresar Interés</a></li>
+  </ul>
+  <button class="nav-mobile-toggle" onclick="toggleNav()"><span></span><span></span><span></span></button>
+</nav>
+
+<div class="page-hero">
+  <div class="container">
+    <div class="s-label gold">La Oferta de Inversión</div>
+    <h1 class="s-title light">El modelo financiero<br><em>completo</em></h1>
+    <p class="s-body light">Buyer economics · Capex real del promotor · Proforma · Waterfall · Estructura de capital.</p>
+  </div>
+</div>
+
+<!-- BUYER ECONOMICS -->
+<section class="economics">
+  <div class="container">
+    <div class="s-label gold">Retorno del Comprador</div>
+    <h2 class="s-title light">La cabaña se <em>paga sola</em><br>y produce desde el día uno</h2>
+    <div class="econ-layout">
+      <div class="cashflow-card reveal">
+        <div class="cf-head">
+          <h3>P&G Mensual · Propietario Estándar</h3>
+          <span class="cf-price">$195,000</span>
+        </div>
+        <div class="cf-row"><span class="cf-lbl">Ingresos rental pool (70%)</span><span class="cf-val">+$2,571</span></div>
+        <div class="cf-row"><span class="cf-lbl">Hipoteca P+I · 20% inicial · DSCR 8%</span><span class="cf-val neg">−$1,145</span></div>
+        <div class="cf-row"><span class="cf-lbl">Cuota HOA</span><span class="cf-val neg">−$350</span></div>
+        <div class="cf-row"><span class="cf-lbl">Seguro de propiedad</span><span class="cf-val neg">−$195</span></div>
+        <div class="cf-row"><span class="cf-lbl">Impuesto predial (~1%)</span><span class="cf-val neg">−$163</span></div>
+        <div class="cf-row"><span class="cf-lbl">Reserva de mantenimiento</span><span class="cf-val neg">−$100</span></div>
+        <div class="cf-row total-row pos"><span class="cf-lbl" style="color:var(--cream);font-weight:600">Flujo Neto Mensual</span><span class="cf-val gold">+$618</span></div>
+      </div>
+      <div class="econ-right reveal">
+        <h3>Tu dinero trabaja<br>mientras tú descansas</h3>
+        <p>A 62% de ocupación y $195 ADR, la cabaña genera $30,849/año en ingresos de renta. Después de la comisión de gestión, recibes $21,585/año — suficiente para cubrir todos los costos y producir flujo positivo cada mes desde el primer día.</p>
+        <div class="returns-grid">
+          <div class="ret-card"><div class="ret-val">16.5%</div><div class="ret-lbl">Cash-on-Cash</div></div>
+          <div class="ret-card"><div class="ret-val">2.5×</div><div class="ret-lbl">MOIC 5 años</div></div>
+          <div class="ret-card"><div class="ret-val">~22%</div><div class="ret-lbl">IRR 5 años</div></div>
+          <div class="ret-card"><div class="ret-val">$44,850</div><div class="ret-lbl">Cash para entrar</div></div>
+        </div>
+        <div class="pitch-card">
+          <p>"Con $44,850 de entrada tu cabaña se paga sola, produce $618 libres al mes, y en 5 años habrás 2.5× tu inversión — con tierra real en Florida y sin tocar tus otros activos."</p>
+        </div>
+      </div>
+    </div>
+    <div class="econ-tiers reveal" style="margin-top:40px">
+      <div class="econ-tier">
+        <div class="econ-tier-head std"><h4>Cabaña Estándar · 65 und.</h4><span>$195,000</span></div>
+        <div class="econ-tier-body">
+          <div class="econ-tier-row"><span>Down payment (20%)</span><span>$39,000</span></div>
+          <div class="econ-tier-row"><span>Closing costs (3%)</span><span>$5,850</span></div>
+          <div class="econ-tier-row"><span>DSCR Loan @ 8%</span><span>$156,000</span></div>
+          <div class="econ-tier-row"><span>Pago mensual P+I</span><span>$1,145</span></div>
+          <div class="econ-tier-row"><span>Ingresos pool (70%) · $195 ADR</span><span>$2,571/mes</span></div>
+          <div class="econ-tier-row hl"><span>Flujo neto mensual</span><span>+$618</span></div>
+          <div class="econ-tier-row hl"><span>Cash-on-Cash</span><span>16.5%</span></div>
+        </div>
+      </div>
+      <div class="econ-tier">
+        <div class="econ-tier-head prm"><h4>Cabaña Premium Vista Lago · 15 und.</h4><span>$220,000</span></div>
+        <div class="econ-tier-body">
+          <div class="econ-tier-row"><span>Down payment (20%)</span><span>$44,000</span></div>
+          <div class="econ-tier-row"><span>Closing costs (3%)</span><span>$6,600</span></div>
+          <div class="econ-tier-row"><span>DSCR Loan @ 8%</span><span>$176,000</span></div>
+          <div class="econ-tier-row"><span>Pago mensual P+I</span><span>$1,291</span></div>
+          <div class="econ-tier-row"><span>Ingresos pool (70%) · $235 ADR</span><span>$3,099/mes</span></div>
+          <div class="econ-tier-row hl"><span>Flujo neto mensual</span><span>+$900</span></div>
+          <div class="econ-tier-row hl"><span>Cash-on-Cash</span><span>21.3%</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CAPEX REAL -->
+<section class="capex-section">
+  <div class="container">
+    <div class="s-label reveal">Lo Que El Promotor Realmente Pone</div>
+    <h2 class="s-title reveal">El riesgo se <em>distribuye.</em><br>El upside se concentra.</h2>
+    <p class="s-body reveal">Placid Farm no es un proyecto de construcción. Es un proyecto de tierra y comunidad. El promotor crea el contexto — el comprador financia su cabaña vía DSCR, el constructor adelanta materiales con pago diferido al cierre.</p>
+    <div class="capex-visual">
+      <div class="capex-chart reveal">
+        <div class="capex-chart-title">Distribución del Capital del Proyecto</div>
+        <div class="capex-bar-group">
+          <div>
+            <div class="capex-bar-lbl"><span>Equity del Promotor (tierra)</span><span>$1,500,000</span></div>
+            <div class="capex-bar-track"><div class="capex-bar-fill tuyo" style="width:9%"></div></div>
+          </div>
+          <div>
+            <div class="capex-bar-lbl"><span>Flujo de ventas (promotor)</span><span>$4,242,175</span></div>
+            <div class="capex-bar-track"><div class="capex-bar-fill flujo" style="width:27%"></div></div>
+          </div>
+          <div>
+            <div class="capex-bar-lbl"><span>DSCR Loans (compradores — no tu riesgo)</span><span>$12,640,000</span></div>
+            <div class="capex-bar-track"><div class="capex-bar-fill comp" style="width:80%"></div></div>
+          </div>
+        </div>
+        <div class="capex-key">
+          <div class="capex-key-item"><div class="capex-key-dot" style="background:var(--sage)"></div>Capital del promotor</div>
+          <div class="capex-key-item"><div class="capex-key-dot" style="background:rgba(74,94,53,0.5)"></div>Flujo de operación / ventas</div>
+          <div class="capex-key-item"><div class="capex-key-dot" style="background:rgba(200,168,75,0.3)"></div>Capital de compradores (DSCR) — no es tu riesgo</div>
+        </div>
+      </div>
+      <div class="capex-summary reveal">
+        <div class="csi hl">
+          <div class="csi-lbl">Exposure Máximo del Promotor · Cualquier Momento</div>
+          <div class="csi-val">$1,642,500</div>
+          <div class="csi-desc">$1.5M tierra + $142,500 float constructor (5 unidades × 30%)</div>
+        </div>
+        <div class="csi">
+          <div class="csi-lbl">Lo que el promotor NUNCA pone</div>
+          <div class="csi-val" style="color:var(--sage)">$7,600,000</div>
+          <div class="csi-desc">Construcción de las 80 cabañas — financiada por los compradores vía DSCR</div>
+        </div>
+        <div class="csi">
+          <div class="csi-lbl">Float del constructor por unidad</div>
+          <div class="csi-val" style="color:var(--straw)">$28,500</div>
+          <div class="csi-desc">30% adelantado. Se recupera en 8–10 semanas al cierre. Máximo 5 simultáneas = $142,500</div>
+        </div>
+        <div class="csi">
+          <div class="csi-lbl">Amenidades financiadas con flujo de ventas</div>
+          <div class="csi-val" style="color:var(--water)">$1,750,000</div>
+          <div class="csi-desc">Sale del flujo de las primeras ventas — no del equity raise inicial</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CAPITAL STRUCTURE -->
+<section class="capital-structure">
+  <div class="container">
+    <div class="s-label reveal">Estructura de Capital</div>
+    <h2 class="s-title reveal">La oferta al <em>inversionista</em></h2>
+    <div class="cs-grid reveal">
+      <div class="cs-item dark">
+        <div class="cs-lbl">Capital Buscado</div>
+        <div class="cs-val">$1,500,000</div>
+        <div class="cs-desc">Equity preferente · Inversionistas calificados únicamente</div>
+      </div>
+      <div class="cs-item">
+        <div class="cs-lbl">Retorno Preferente</div>
+        <div class="cs-val">12%</div>
+        <div class="cs-desc">Anual sobre el capital invertido · acumulativo</div>
+      </div>
+      <div class="cs-item">
+        <div class="cs-lbl">Split de Utilidades</div>
+        <div class="cs-val">50/50</div>
+        <div class="cs-desc">Después de devolver capital + retorno preferente</div>
+      </div>
+    </div>
+    <div class="structure-box reveal">
+      <div class="sb-title">Términos del Acuerdo de Inversión</div>
+      <div>
+        <div class="sb-row"><span>Estructura</span><span>Equity Preferente</span></div>
+        <div class="sb-row"><span>Retorno Preferente</span><span>12% / año</span></div>
+        <div class="sb-row"><span>Split Zona A (después de pref)</span><span>50/50 Inv/GP</span></div>
+        <div class="sb-row"><span>Equity Zona B (50%)</span><span>Interés titulado</span></div>
+        <div class="sb-row"><span>Equity Zona C (50%)</span><span>Interés titulado</span></div>
+        <div class="sb-row hl"><span>Horizonte de inversión</span><span>2–3 años</span></div>
+      </div>
+      <div>
+        <div class="sb-row"><span>Mínimo de inversión</span><span>$100,000</span></div>
+        <div class="sb-row"><span>Ticket completo</span><span>$1,500,000</span></div>
+        <div class="sb-row"><span>Distribuciones</span><span>Al cierre de cada venta</span></div>
+        <div class="sb-row"><span>Entidad receptora</span><span>Florida LLC en formación</span></div>
+        <div class="sb-row"><span>Garantía personal GP</span><span>Disponible</span></div>
+        <div class="sb-row hl"><span>Documentación</span><span>Operating Agreement + PPM</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROFORMA FINANCIERA -->
+<section class="financial">
+  <div class="container">
+    <div class="s-label reveal">Proforma Financiera</div>
+    <h2 class="s-title reveal">Tres escenarios,<br><em>todos rentables</em></h2>
+    <div class="tabs reveal" style="margin:40px 0 32px">
+      <button class="tab-btn active" onclick="switchTab('base',this)">Caso Base</button>
+      <button class="tab-btn" onclick="switchTab('mid',this)">Caso Medio</button>
+      <button class="tab-btn" onclick="switchTab('up',this)">Caso Optimista</button>
+    </div>
+    <div class="tab-panel active" id="tab-base">
+      <div class="fin-hero reveal">
+        <div class="fin-moic">5.2×</div>
+        <div class="fin-moic-lbl">MOIC Total</div>
+        <div class="fin-irr">~41%</div>
+        <div class="fin-irr-lbl">IRR Estimado (5 años)</div>
+      </div>
+      <table class="data-table reveal">
+        <tr><th>Concepto</th><th style="text-align:right">Valor</th></tr>
+        <tr><td>65 estándar × $195,000 + 15 premium × $220,000</td><td class="mono">$15,975,000</td></tr>
+        <tr><td>Total Costos (tierra + infra + amenidades + construcción + contingencia)</td><td class="mono">$13,342,175</td></tr>
+        <tr class="hl"><td>Utilidad Bruta Zona A</td><td class="mono">$2,632,825</td></tr>
+        <tr><td>Margen de Desarrollo</td><td class="mono">16.5%</td></tr>
+        <tr><td>① Capital Devuelto al Inversionista</td><td class="mono">$1,500,000</td></tr>
+        <tr><td>② Retorno Preferente 12% × 2 años</td><td class="mono">$360,000</td></tr>
+        <tr><td>③ 50% Remanente → Inversionista</td><td class="mono">$1,096,920</td></tr>
+        <tr class="hl"><td>Subtotal Cash al Inversionista (solo Zona A)</td><td class="mono">$2,956,920</td></tr>
+        <tr><td>50% PM + HOA Business (8× EBITDA · $888,600/año)</td><td class="mono">$3,554,400</td></tr>
+        <tr><td>50% Zona B (restaurante + 4.42 ac R-3)</td><td class="mono">$1,050,000</td></tr>
+        <tr><td>50% Zona C (63 acres preserva)</td><td class="mono">$250,000</td></tr>
+        <tr class="hl total-tr"><td>TOTAL VALOR CREADO PARA EL INVERSIONISTA</td><td class="mono">$7,811,320</td></tr>
+      </table>
+    </div>
+    <div class="tab-panel" id="tab-mid">
+      <div class="fin-hero reveal">
+        <div class="fin-moic">6.1×</div>
+        <div class="fin-moic-lbl">MOIC Total</div>
+        <div class="fin-irr">~47%</div>
+        <div class="fin-irr-lbl">IRR Estimado (5 años)</div>
+      </div>
+      <table class="data-table reveal">
+        <tr><th>Concepto</th><th style="text-align:right">Valor</th></tr>
+        <tr><td>60 estándar × $200,000 + 20 premium × $225,000</td><td class="mono">$16,500,000</td></tr>
+        <tr><td>Total Costos</td><td class="mono">$13,342,175</td></tr>
+        <tr class="hl"><td>Utilidad Bruta Zona A</td><td class="mono">$3,157,825</td></tr>
+        <tr><td>Margen</td><td class="mono">19.1%</td></tr>
+        <tr><td>① + ② Capital + Retorno Preferente</td><td class="mono">$1,860,000</td></tr>
+        <tr><td>③ 50% Remanente → Inversionista</td><td class="mono">$1,348,913</td></tr>
+        <tr class="hl"><td>Subtotal Cash al Inversionista</td><td class="mono">$3,208,913</td></tr>
+        <tr><td>Equity PM + Zona B + Zona C</td><td class="mono">$5,854,400</td></tr>
+        <tr class="hl total-tr"><td>TOTAL VALOR CREADO</td><td class="mono">$9,063,313</td></tr>
+      </table>
+    </div>
+    <div class="tab-panel" id="tab-up">
+      <div class="fin-hero reveal">
+        <div class="fin-moic">7.1×</div>
+        <div class="fin-moic-lbl">MOIC Total</div>
+        <div class="fin-irr">~52%</div>
+        <div class="fin-irr-lbl">IRR Estimado (5 años)</div>
+      </div>
+      <table class="data-table reveal">
+        <tr><th>Concepto</th><th style="text-align:right">Valor</th></tr>
+        <tr><td>65 estándar × $200,000 + 15 premium × $230,000</td><td class="mono">$16,450,000</td></tr>
+        <tr><td>Total Costos</td><td class="mono">$13,342,175</td></tr>
+        <tr class="hl"><td>Utilidad Bruta Zona A</td><td class="mono">$3,107,825</td></tr>
+        <tr><td>Margen</td><td class="mono">18.9%</td></tr>
+        <tr><td>① + ② Capital + Retorno Preferente</td><td class="mono">$1,860,000</td></tr>
+        <tr><td>③ 50% Remanente → Inversionista</td><td class="mono">$1,323,913</td></tr>
+        <tr class="hl"><td>Subtotal Cash al Inversionista</td><td class="mono">$3,183,913</td></tr>
+        <tr><td>Equity PM + Zona B Upside + Zona C</td><td class="mono">$7,454,400</td></tr>
+        <tr class="hl total-tr"><td>TOTAL VALOR CREADO</td><td class="mono">$10,638,313</td></tr>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- WATERFALL -->
+<section class="waterfall">
+  <div class="container">
+    <div class="s-label reveal">Distribución de Retornos</div>
+    <h2 class="s-title reveal">Cómo <em>fluye</em> el dinero</h2>
+    <div class="wf-layout">
+      <div>
+        <div class="wf-steps">
+          <div class="wf-step reveal"><div class="wf-n">①</div><div class="wf-c"><h5>Reserva Operativa — 3% ($78,985)</h5><p>Reservados para gastos post-cierre e imprevistos</p></div></div>
+          <div class="wf-step reveal"><div class="wf-n">②</div><div class="wf-c"><h5>Devolución de Capital — $1,500,000</h5><p>Priorizado de las primeras ventas. Cubierto con ~12 cabañas cerradas (Mes 8–14)</p></div></div>
+          <div class="wf-step reveal"><div class="wf-n">③</div><div class="wf-c"><h5>Retorno Preferente — 12% anual ($360,000)</h5><p>$360,000 sobre $1.5M × 2 años. Pagado de ventas Fase 2</p></div></div>
+          <div class="wf-step reveal"><div class="wf-n">④</div><div class="wf-c"><h5>Split 50/50 del Remanente</h5><p>Utilidad restante (~$2,193,840) dividida en partes iguales</p></div></div>
+          <div class="wf-step reveal"><div class="wf-n">⑤</div><div class="wf-c"><h5>Equity Permanente Zonas B + C</h5><p>50% del restaurante, 4.42 acres R-3, y 63 acres de preserva. Titulados al completar ventas de Zona A</p></div></div>
+        </div>
+        <div class="wf-total reveal">
+          <div class="wf-total-row"><span class="wf-total-lbl">Capital Devuelto</span><span class="wf-total-val">$1,500,000</span></div>
+          <div class="wf-total-row"><span class="wf-total-lbl">Retorno Preferente</span><span class="wf-total-val">$360,000</span></div>
+          <div class="wf-total-row"><span class="wf-total-lbl">50% Remanente Ventas</span><span class="wf-total-val">$1,096,920</span></div>
+          <div class="wf-total-row"><span class="wf-total-lbl">SUBTOTAL CASH (Zona A)</span><span class="wf-total-val big">$2,956,920</span></div>
+        </div>
+      </div>
+      <div class="wf-equity-right reveal">
+        <h3>El equity permanente —<br>lo que queda para siempre</h3>
+        <p>Cuando terminan las ventas de Zona A, el inversionista no solo recibió su dinero + retorno. También quedó como socio 50/50 en tres activos independientes que generan ingresos sin necesidad de hacer nada más.</p>
+        <div class="equity-source">
+          <div class="es-info"><h5>Negocio PM + HOA</h5><p>$888,600/año · capitalizado 8× EBITDA</p></div>
+          <span class="es-val">$3,554,400</span>
+        </div>
+        <div class="equity-source zona-b">
+          <div class="es-info"><h5>Zona B · 4.42 acres R-3</h5><p>Restaurante + entitlement 48 unidades</p></div>
+          <span class="es-val">$1,050,000+</span>
+        </div>
+        <div class="equity-source zona-c">
+          <div class="es-info"><h5>Zona C · 63 acres preserva</h5><p>Conservation easement + amenity land</p></div>
+          <span class="es-val">$250,000+</span>
+        </div>
+        <div class="equity-total">
+          <span>Subtotal Equity Permanente</span>
+          <span>$4,854,400</span>
+        </div>
+        <div class="moic-box">
+          <div class="moic-big">5.2×</div>
+          <div class="moic-lbl">MOIC Total Sobre $1,500,000</div>
+          <div class="moic-sub">$7,811,320 de valor creado total · caso base</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PAGE NAV -->
+<div class="page-nav">
+  <div class="container">
+    <div class="page-nav-inner">
+      <a href="producto.html" class="page-nav-link">
+        <span class="pnl-arrow">←</span>
+        <div><div class="pnl-direction">Anterior</div><div class="pnl-title">Producto · Cabañas · Constructores</div></div>
+      </a>
+      <a href="estrategia.html" class="page-nav-link">
+        <div style="text-align:right"><div class="pnl-direction">Siguiente</div><div class="pnl-title">Estrategia · Riesgos · Timeline</div></div>
+        <span class="pnl-arrow">→</span>
+      </a>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <a href="index.html" class="footer-brand">Placid <span>Farm</span></a>
+  <ul class="footer-links">
+    <li><a href="concepto.html">Concepto</a></li>
+    <li><a href="producto.html">Producto</a></li>
+    <li><a href="inversion.html">Inversión</a></li>
+    <li><a href="contacto.html#interes">Contacto</a></li>
+  </ul>
+  <div class="footer-meta">
+    <div>BKS-2026-PLF-001 · Mayo 2026</div>
+    <div>Brickstackers Intelligence</div>
+  </div>
+</footer>
+
+<script>
+function toggleNav(){document.querySelector('.nav-links').classList.toggle('open')}
+function switchTab(id,btn){
+  document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(t=>t.classList.remove('active'));
+  document.getElementById('tab-'+id).classList.add('active');
+  btn.classList.add('active');
+}
+const obs=new IntersectionObserver((entries)=>{entries.forEach((e,i)=>{if(e.isIntersecting)setTimeout(()=>e.target.classList.add('visible'),(i%4)*80)})},{threshold:0.08,rootMargin:'0px 0px -40px 0px'});
+document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+const capexObs=new IntersectionObserver((entries)=>{entries.forEach(e=>{if(e.isIntersecting){e.target.querySelectorAll('.capex-bar-fill').forEach(b=>{const w=b.style.width;b.style.width='0';setTimeout(()=>{b.style.width=w},150)})}})},{threshold:0.3});
+document.querySelectorAll('.capex-chart').forEach(el=>capexObs.observe(el));
+</script>
+</body>
+</html>

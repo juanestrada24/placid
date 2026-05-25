@@ -34,7 +34,7 @@
 /* CABINS */
 .cabins-section{background:var(--white)}
 .cabins-split{display:grid;grid-template-columns:1fr 1fr;min-height:80vh}
-.cabins-gallery{display:grid;grid-template-rows:1fr 1fr}
+.cabins-gallery{display:grid;grid-template-rows:repeat(3,1fr)}
 .cabin-img{overflow:hidden}
 .cabin-img img{width:100%;height:100%;object-fit:cover;transition:transform 6s ease}
 .cabin-img:hover img{transform:scale(1.04)}
@@ -111,11 +111,23 @@
 .rfp-n{width:24px;height:24px;background:rgba(200,168,75,0.15);display:flex;align-items:center;justify-content:center;font-size:0.65rem;font-weight:700;color:var(--gold);flex-shrink:0;font-family:'DM Mono',monospace;border-radius:2px}
 .rfp-text h6{font-size:0.72rem;font-weight:500;color:var(--cream);margin-bottom:2px}
 .rfp-text p{font-size:0.68rem;color:var(--stone)}
+/* LIFESTYLE MOSAIC */
+.lifestyle{background:var(--white);padding:72px 0 28px}
+.lifestyle-head{margin-bottom:32px}
+.life-mosaic{display:grid;grid-template-columns:repeat(3,1fr);grid-auto-rows:220px;gap:4px;padding:0 56px}
+.life-item{position:relative;overflow:hidden;background:var(--ink);margin:0}
+.life-item.wide{grid-column:span 2}
+.life-item.tall{grid-row:span 2}
+.life-item img{width:100%;height:100%;object-fit:cover;transition:transform 0.7s ease;filter:brightness(0.92)}
+.life-item:hover img{transform:scale(1.05);filter:brightness(1)}
+.life-cap{position:absolute;bottom:0;left:0;right:0;padding:12px 14px;background:linear-gradient(to top,rgba(26,18,8,0.85),transparent);color:var(--gold);font-size:0.6rem;letter-spacing:0.14em;text-transform:uppercase;font-weight:500;transform:translateY(100%);transition:transform 0.3s}
+.life-item:hover .life-cap{transform:translateY(0)}
+.life-placeholder{width:100%;height:100%;display:flex;align-items:center;justify-content:center;color:rgba(246,238,216,0.35);font-size:0.65rem;letter-spacing:0.14em;text-transform:uppercase;text-align:center;padding:24px;border:1px dashed rgba(246,238,216,0.15)}
 @media(max-width:960px){
   .am-grid{grid-template-columns:repeat(3,1fr)}
   .budget-grid{grid-template-columns:repeat(2,1fr)}
   .cabins-split{grid-template-columns:1fr}
-  .cabins-gallery{height:50vw;grid-template-rows:1fr}
+  .cabins-gallery{height:90vw;grid-template-rows:repeat(3,1fr)}
   .cabins-info{padding:40px 24px}
   .cabin-specs,.cabin-tiers{grid-template-columns:1fr}
   .financing-models{grid-template-columns:1fr}
@@ -123,6 +135,8 @@
   .rfp-grid{grid-template-columns:1fr}
   .flow-steps{grid-template-columns:1fr}
   .pros-cons{grid-template-columns:1fr}
+  .life-mosaic{grid-template-columns:1fr;padding:0 20px;grid-auto-rows:50vw}
+  .life-item.wide,.life-item.tall{grid-column:auto;grid-row:auto}
 }
 </style>
 </head>
@@ -144,7 +158,7 @@
 
 <!-- AMENIDADES BANNER -->
 <div class="amenities-banner">
-  <img src="https://res.cloudinary.com/df9mz9qei/image/upload/v1779245403/6F43A198-E042-4F77-815C-4E5C36736B6B_twcw4d.png" alt="La vida en Placid Farm">
+  <img src="https://res.cloudinary.com/df9mz9qei/image/upload/v1779254024/31085FDB-B945-452B-887D-D3802CEEFC55_paydjs.png" alt="Vista aérea de Placid Farm">
   <div class="amenities-banner-text">
     <h2>La vida en<br><strong><em>Placid Farm</em></strong></h2>
     <p>No es una urbanización. Es una comunidad en la que realmente quieres vivir.</p>
@@ -169,11 +183,53 @@
   </div>
 </div>
 
+<!-- LIFESTYLE MOSAIC -->
+<section class="lifestyle">
+  <div class="container lifestyle-head">
+    <div class="s-label reveal">Estilo de Vida</div>
+    <h3 class="s-title reveal" style="font-size:clamp(1.8rem,3vw,2.4rem)">Escenas de la <em>vida</em><br>en Placid Farm</h3>
+  </div>
+  <div class="life-mosaic reveal">
+    <figure class="life-item wide tall">
+      <img src="https://res.cloudinary.com/df9mz9qei/image/upload/v1779747965/92EA5FC8-8DB9-4307-93A4-91FED21C4131_anicpx.png" alt="La finquita">
+      <figcaption class="life-cap">La finquita · vida agro</figcaption>
+    </figure>
+    <figure class="life-item">
+      <img src="https://res.cloudinary.com/df9mz9qei/image/upload/v1779570715/D3578F75-1E24-4BE7-A9FA-3F4FB545AA70_xryljk.png" alt="Growing workshop">
+      <figcaption class="life-cap">Growing workshop · huerta comunitaria</figcaption>
+    </figure>
+    <figure class="life-item">
+      <img src="https://res.cloudinary.com/df9mz9qei/image/upload/v1779748548/1491E443-84FE-45DB-831E-4A1EE4724D28_xiucdg.png" alt="Cítricos del huerto">
+      <figcaption class="life-cap">Cítricos del huerto · farm-to-table</figcaption>
+    </figure>
+    <figure class="life-item">
+      <img src="https://res.cloudinary.com/df9mz9qei/image/upload/v1779748533/CA9E579C-A0AE-418D-9825-810029AFDF4E_bdw3gv.png" alt="Senderos naturales">
+      <figcaption class="life-cap">Senderos · birdwatching</figcaption>
+    </figure>
+    <figure class="life-item">
+      <img src="https://res.cloudinary.com/df9mz9qei/image/upload/v1779748547/B9B2BD54-C771-4CC3-9B6B-0C2C540111FD_imnuj4.png" alt="Piscina comunitaria">
+      <figcaption class="life-cap">Piscina comunitaria</figcaption>
+    </figure>
+    <figure class="life-item wide">
+      <img src="https://res.cloudinary.com/df9mz9qei/image/upload/v1779737605/A8663BEC-DA5D-41D7-8EC6-38971559A82B_r3fsca.png" alt="Escena de la vida en Placid Farm">
+      <figcaption class="life-cap">Escena · vida al aire libre</figcaption>
+    </figure>
+    <figure class="life-item">
+      <img src="https://res.cloudinary.com/df9mz9qei/image/upload/v1779748550/2E8952F3-9584-4519-A1AA-7A71EB64686C_kzlsvk.png" alt="Escena de la vida en Placid Farm">
+      <figcaption class="life-cap">Escena · momento cotidiano</figcaption>
+    </figure>
+    <figure class="life-item">
+      <img src="https://res.cloudinary.com/df9mz9qei/image/upload/v1779748549/C802487D-A5DF-4802-ACCA-576EF81ED859_pvf7rw.png" alt="Escena de la vida en Placid Farm">
+      <figcaption class="life-cap">Escena · vida en comunidad</figcaption>
+    </figure>
+  </div>
+</section>
+
 <!-- BUDGET -->
 <div class="budget-section">
   <div class="container">
     <div class="s-label reveal">Presupuesto de Amenidades</div>
-    <h3 class="s-title reveal" style="font-size:2rem">Cada amenidad está en el <em>presupuesto</em><br>— no es promesa futura</h3>
+    <h3 class="s-title reveal" style="font-size:2rem">Presupuesto <em>preliminar</em><br>de amenidades</h3>
     <div class="budget-grid reveal">
       <div class="budget-item"><div class="budget-name">Racket Center</div><div class="budget-range">$500,000</div><div class="budget-desc">4 padel + 2 pickleball + 2 tenis · pro shop · iluminación</div></div>
       <div class="budget-item"><div class="budget-name">Piscina Comunitaria</div><div class="budget-range">$345,000</div><div class="budget-desc">Construcción + deck + filtración + mobiliario</div></div>
@@ -195,8 +251,9 @@
 <section class="cabins-section">
   <div class="cabins-split">
     <div class="cabins-gallery">
-      <div class="cabin-img"><img src="https://res.cloudinary.com/df9mz9qei/image/upload/v1779245378/IMG_5085_z11yvs.jpg" alt="Cabaña exterior"></div>
+      <div class="cabin-img"><img src="https://res.cloudinary.com/df9mz9qei/image/upload/v1779749615/6DEA9EE2-913B-448A-8253-3AC7429195CE_lbysfa.png" alt="Llegada · cabaña entre los árboles"></div>
       <div class="cabin-img"><img src="https://res.cloudinary.com/df9mz9qei/image/upload/v1779245378/IMG_5086_rbgsgd.jpg" alt="Cabaña madera"></div>
+      <div class="cabin-img"><img src="https://res.cloudinary.com/df9mz9qei/image/upload/v1779737606/813EA0D6-4C13-4B84-96AC-9CD7D622D387_ht55kn.png" alt="Cabaña vista al lago"></div>
     </div>
     <div class="cabins-info">
       <div class="s-label">El Producto</div>

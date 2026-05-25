@@ -25,6 +25,7 @@
 .gal-item:hover img{transform:scale(1.08);filter:brightness(1)}
 .gal-cap{position:absolute;bottom:0;left:0;right:0;padding:12px 14px;background:linear-gradient(to top,rgba(26,18,8,0.85) 0%,transparent);transform:translateY(100%);transition:transform 0.3s;font-size:0.6rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--gold);font-weight:500}
 .gal-item:hover .gal-cap{transform:translateY(0)}
+.gal-placeholder{width:100%;height:100%;display:flex;align-items:center;justify-content:center;color:rgba(246,238,216,0.35);font-size:0.65rem;letter-spacing:0.14em;text-transform:uppercase;text-align:center;padding:24px;border:1px dashed rgba(246,238,216,0.15);background:var(--ink)}
 /* SUMMARY STATS */
 .summary{background:var(--ink);padding:64px 0;border-top:1px solid rgba(200,168,75,0.1)}
 .summary-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:2px;background:rgba(200,168,75,0.1);border-radius:4px;overflow:hidden}
@@ -96,29 +97,38 @@
     <h2 class="gal-title">La propiedad, <em>antes & después</em></h2>
     <p class="gal-sub">134 acres de campo de golf dormido — y la visión de lo que se convierte</p>
     <div class="gal-tabs">
-      <button class="gal-tab active" onclick="switchGal('existing',this)">Propiedad Actual</button>
+      <button class="gal-tab active" onclick="switchGal('actual',this)">Fotos Actuales</button>
+      <button class="gal-tab" onclick="switchGal('vida',this)">Vida y Amenidades</button>
       <button class="gal-tab" onclick="switchGal('vision',this)">Visión de Diseño</button>
     </div>
-    <div class="gal-panel active" id="gal-existing">
+    <div class="gal-panel active" id="gal-actual">
       <div class="gal-mosaic">
-        <div class="gal-item tall"><img src="https://res.cloudinary.com/df9mz9qei/image/upload/v1779245396/IMG_4138_kaq0p0.webp" alt="Clubhouse"><div class="gal-cap">Clubhouse & Estacionamiento</div></div>
+        <div class="gal-item tall"><img src="https://res.cloudinary.com/df9mz9qei/image/upload/v1779245396/IMG_4138_kaq0p0.webp" alt="Aerial"><div class="gal-cap">Aerial · clubhouse y campos</div></div>
+        <div class="gal-item wide"><img src="https://res.cloudinary.com/df9mz9qei/image/upload/v1779245383/IMG_4140_bazkec.webp" alt="Aerial completo"><div class="gal-cap">Vista aérea completa · 134 acres</div></div>
+        <div class="gal-item"><img src="https://res.cloudinary.com/df9mz9qei/image/upload/v1779245380/IMG_4149_i559gn.webp" alt="Clubhouse side"><div class="gal-cap">Clubhouse · vista lateral</div></div>
+        <div class="gal-item"><img src="https://res.cloudinary.com/df9mz9qei/image/upload/v1779245377/IMG_5088_nwks9x.webp" alt="Vista del sitio"><div class="gal-cap">Vista del sitio</div></div>
+        <div class="gal-item"><img src="https://res.cloudinary.com/df9mz9qei/image/upload/v1779245376/IMG_4139_yuhxvn.webp" alt="Propiedad"><div class="gal-cap">Propiedad · vista interna</div></div>
         <div class="gal-item"><img src="https://res.cloudinary.com/df9mz9qei/image/upload/v1779245374/IMG_4147_jawe2b.webp" alt="Lake Placid"><div class="gal-cap">Lake Placid · 3 millas</div></div>
-        <div class="gal-item"><img src="https://res.cloudinary.com/df9mz9qei/image/upload/v1779245398/IMG_4137_due8ns.webp" alt="Fairways"><div class="gal-cap">Front Nine · Futuros Lotes</div></div>
-        <div class="gal-item wide"><img src="https://res.cloudinary.com/df9mz9qei/image/upload/v1779245383/IMG_4140_bazkec.webp" alt="Aerial"><div class="gal-cap">Vista Aérea Completa · 134 Acres</div></div>
-        <div class="gal-item"><img src="https://res.cloudinary.com/df9mz9qei/image/upload/v1779252819/E82CA689-2D2C-4296-95F0-2B8710D3A73D_mqliy5.png" alt="Lagunas"><div class="gal-cap">Lagunas Naturales</div></div>
-        <div class="gal-item"><img src="https://res.cloudinary.com/df9mz9qei/image/upload/v1779253193/EB3B0B67-D7AF-48F4-BC1E-B11B7159C571_ptzef6.png" alt="Palms"><div class="gal-cap">Fairways con Palmeras</div></div>
-        <div class="gal-item"><img src="https://res.cloudinary.com/df9mz9qei/image/upload/v1779253699/3BA8E703-DE64-4E7E-9717-6B36742956A5_y8cybj.png" alt="Overview"><div class="gal-cap">Vista General del Sitio</div></div>
-        <div class="gal-item"><img src="https://res.cloudinary.com/df9mz9qei/image/upload/v1779254024/31085FDB-B945-452B-887D-D3802CEEFC55_paydjs.png" alt="Site plan"><div class="gal-cap">Distribución de Lotes · Plano</div></div>
+      </div>
+    </div>
+    <div class="gal-panel" id="gal-vida">
+      <div class="gal-mosaic">
+        <div class="gal-item tall"><img src="https://res.cloudinary.com/df9mz9qei/image/upload/v1779737611/IMG_5265_wewzuq.png" alt="Acceso"><div class="gal-cap">Acceso · entrada principal</div></div>
+        <div class="gal-item wide"><img src="https://res.cloudinary.com/df9mz9qei/image/upload/v1779570484/B012F746-9D04-4A24-98FB-599524969BB7_ha3nlx.png" alt="Clubhouse"><div class="gal-cap">Clubhouse</div></div>
+        <div class="gal-item"><img src="https://res.cloudinary.com/df9mz9qei/image/upload/v1779569816/A7E0DFE2-8D56-4669-A6BB-D98383DFEE8C_aksdaf.png" alt="Racket center"><div class="gal-cap">Racket center · padel + tenis</div></div>
+        <div class="gal-item"><img src="https://res.cloudinary.com/df9mz9qei/image/upload/v1779570715/D3578F75-1E24-4BE7-A9FA-3F4FB545AA70_xryljk.png" alt="Growing workshop"><div class="gal-cap">Growing workshop · huerta</div></div>
+        <div class="gal-item"><img src="https://res.cloudinary.com/df9mz9qei/image/upload/v1779748533/CA9E579C-A0AE-418D-9825-810029AFDF4E_bdw3gv.png" alt="Senderos"><div class="gal-cap">Senderos · birdwatching</div></div>
+        <div class="gal-item"><img src="https://res.cloudinary.com/df9mz9qei/image/upload/v1779748548/1491E443-84FE-45DB-831E-4A1EE4724D28_xiucdg.png" alt="Cítricos"><div class="gal-cap">Cítricos · farm-to-table</div></div>
+        <div class="gal-item"><img src="https://res.cloudinary.com/df9mz9qei/image/upload/v1779748547/B9B2BD54-C771-4CC3-9B6B-0C2C540111FD_imnuj4.png" alt="Piscina"><div class="gal-cap">Piscina comunitaria</div></div>
       </div>
     </div>
     <div class="gal-panel" id="gal-vision">
       <div class="gal-mosaic">
-        <div class="gal-item wide tall"><img src="https://res.cloudinary.com/df9mz9qei/image/upload/v1779245403/6E2DB016-7008-4F9B-8170-4D4B00F80FEC_gxshcb.png" alt="Jardín"><div class="gal-cap">Jardín Comunitario · Atardecer</div></div>
-        <div class="gal-item"><img src="https://res.cloudinary.com/df9mz9qei/image/upload/v1779245378/IMG_5086_rbgsgd.jpg" alt="Cabaña"><div class="gal-cap">Referencia Cabaña · Madera + Metal</div></div>
-        <div class="gal-item"><img src="https://res.cloudinary.com/df9mz9qei/image/upload/v1779245378/IMG_5085_z11yvs.jpg" alt="Cabaña 2"><div class="gal-cap">Timber Frame · Acabados Naturales</div></div>
-        <div class="gal-item"><img src="https://res.cloudinary.com/df9mz9qei/image/upload/v1779245403/6F43A198-E042-4F77-815C-4E5C36736B6B_twcw4d.png" alt="Clubhouse vision"><div class="gal-cap">Visión Renovación Clubhouse</div></div>
-        <div class="gal-item"><img src="https://res.cloudinary.com/df9mz9qei/image/upload/v1779245403/1FCBB779-ECE3-4822-A95D-47811BF994D3_o0jhbz.png" alt="Huerta"><div class="gal-cap">Jardín de Hierbas · Vida Agro</div></div>
-        <div class="gal-item"><img src="https://res.cloudinary.com/df9mz9qei/image/upload/v1779245401/38047AE8-0CE5-4E5F-94FE-8D0F6043C3C1_hastdf.png" alt="Jardín noche"><div class="gal-cap">Jardín Comunitario · Noche</div></div>
+        <div class="gal-item wide tall"><img src="https://res.cloudinary.com/df9mz9qei/image/upload/v1779245403/6E2DB016-7008-4F9B-8170-4D4B00F80FEC_gxshcb.png" alt="Jardín"><div class="gal-cap">Jardín comunitario · atardecer</div></div>
+        <div class="gal-item"><img src="https://res.cloudinary.com/df9mz9qei/image/upload/v1779245378/IMG_5086_rbgsgd.jpg" alt="Cabaña"><div class="gal-cap">Referencia cabaña · madera + metal</div></div>
+        <div class="gal-item"><img src="https://res.cloudinary.com/df9mz9qei/image/upload/v1779737606/813EA0D6-4C13-4B84-96AC-9CD7D622D387_ht55kn.png" alt="Cabaña vista lago"><div class="gal-cap">Cabaña vista al lago</div></div>
+        <div class="gal-item"><img src="https://res.cloudinary.com/df9mz9qei/image/upload/v1779569954/9097627C-9781-4690-8CEF-E3508BD5D239_mjzazk.png" alt="Greenhouse"><div class="gal-cap">Greenhouse · producción agroecológica</div></div>
+        <div class="gal-item"><img src="https://res.cloudinary.com/df9mz9qei/image/upload/v1779245401/38047AE8-0CE5-4E5F-94FE-8D0F6043C3C1_hastdf.png" alt="Jardín noche"><div class="gal-cap">Jardín comunitario · noche</div></div>
       </div>
     </div>
   </div>

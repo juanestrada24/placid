@@ -100,14 +100,15 @@
 <nav>
   <a href="index.html" class="nav-logo">Placid <span>Grove</span></a>
   <ul class="nav-links">
-    <li><a href="index.html">Inicio</a></li>
-    <li><a href="concepto.html">Concepto</a></li>
-    <li><a href="producto.html">Producto</a></li>
-    <li><a href="inversion.html">Inversión</a></li>
-    <li><a href="estrategia.html" class="active">Estrategia</a></li>
-    <li><a href="contacto.html">Galería</a></li>
-    <li><a href="contacto.html#interes" class="nav-cta">Expresar Interés</a></li>
+    <li><a href="index.html" data-i18n="nav.inicio">Inicio</a></li>
+    <li><a href="concepto.html" data-i18n="nav.concepto">Concepto</a></li>
+    <li><a href="producto.html" data-i18n="nav.producto">Producto</a></li>
+    <li><a href="inversion.html" data-i18n="nav.inversion">Inversión</a></li>
+    <li><a href="estrategia.html" class="active" data-i18n="nav.estrategia">Estrategia</a></li>
+    <li><a href="contacto.html" data-i18n="nav.galeria">Galería</a></li>
+    <li><a href="contacto.html#interes" class="nav-cta" data-i18n="nav.cta">Expresar Interés</a></li>
   </ul>
+  <button class="lang-toggle" onclick="toggleLang()">EN</button>
   <button class="nav-mobile-toggle" onclick="toggleNav()"><span></span><span></span><span></span></button>
 </nav>
 
@@ -278,17 +279,18 @@
 <footer>
   <a href="index.html" class="footer-brand">Placid <span>Grove</span></a>
   <ul class="footer-links">
-    <li><a href="concepto.html">Concepto</a></li>
-    <li><a href="producto.html">Producto</a></li>
-    <li><a href="inversion.html">Inversión</a></li>
-    <li><a href="contacto.html#interes">Contacto</a></li>
+    <li><a href="concepto.html" data-i18n="nav.concepto">Concepto</a></li>
+    <li><a href="producto.html" data-i18n="nav.producto">Producto</a></li>
+    <li><a href="inversion.html" data-i18n="nav.inversion">Inversión</a></li>
+    <li><a href="contacto.html#interes" data-i18n="footer.contacto">Contacto</a></li>
   </ul>
   <div class="footer-meta">
-    <div>BKS-2026-PLF-001 · Mayo 2026</div>
-    <div>Brickstackers Intelligence</div>
+    <div data-i18n="footer.meta1">BKS-2026-PLG-001 · Mayo 2026</div>
+    <div data-i18n="footer.meta2b">Brickstackers Intelligence</div>
   </div>
 </footer>
 
+<script src="i18n.js"></script>
 <script>
 function toggleNav(){document.querySelector('.nav-links').classList.toggle('open')}
 const obs=new IntersectionObserver((entries)=>{entries.forEach((e,i)=>{if(e.isIntersecting)setTimeout(()=>e.target.classList.add('visible'),(i%4)*80)})},{threshold:0.08,rootMargin:'0px 0px -40px 0px'});

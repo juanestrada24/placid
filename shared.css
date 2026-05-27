@@ -29,6 +29,10 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;padding:14px 48px;display:fl
 .nav-mobile-toggle{display:none;background:none;border:none;cursor:pointer;padding:4px}
 .nav-mobile-toggle span{display:block;width:22px;height:2px;background:var(--ink);margin:4px 0;transition:all 0.3s}
 
+/* LANGUAGE TOGGLE */
+.lang-toggle{background:transparent;border:1px solid rgba(74,94,53,0.35);color:var(--moss);font-size:0.62rem;font-weight:600;letter-spacing:0.2em;text-transform:uppercase;padding:6px 10px;margin-left:12px;cursor:pointer;transition:all 0.2s;font-family:'Outfit',sans-serif;border-radius:2px;min-width:38px}
+.lang-toggle:hover{border-color:var(--gold);color:var(--gold);background:rgba(200,168,75,0.05)}
+
 /* LAYOUT */
 section{padding:100px 0}
 .container{max-width:1240px;margin:0 auto;padding:0 56px}

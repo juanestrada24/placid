@@ -96,14 +96,15 @@
 <nav>
   <a href="index.html" class="nav-logo">Placid <span>Grove</span></a>
   <ul class="nav-links">
-    <li><a href="index.html">Inicio</a></li>
-    <li><a href="concepto.html">Concepto</a></li>
-    <li><a href="producto.html">Producto</a></li>
-    <li><a href="inversion.html">Inversión</a></li>
-    <li><a href="estrategia.html">Estrategia</a></li>
-    <li><a href="contacto.html" class="active">Galería</a></li>
-    <li><a href="#interes" class="nav-cta">Expresar Interés</a></li>
+    <li><a href="index.html" data-i18n="nav.inicio">Inicio</a></li>
+    <li><a href="concepto.html" data-i18n="nav.concepto">Concepto</a></li>
+    <li><a href="producto.html" data-i18n="nav.producto">Producto</a></li>
+    <li><a href="inversion.html" data-i18n="nav.inversion">Inversión</a></li>
+    <li><a href="estrategia.html" data-i18n="nav.estrategia">Estrategia</a></li>
+    <li><a href="contacto.html" class="active" data-i18n="nav.galeria">Galería</a></li>
+    <li><a href="#interes" class="nav-cta" data-i18n="nav.cta">Expresar Interés</a></li>
   </ul>
+  <button class="lang-toggle" onclick="toggleLang()">EN</button>
   <button class="nav-mobile-toggle" onclick="toggleNav()"><span></span><span></span><span></span></button>
 </nav>
 
@@ -221,7 +222,7 @@
         <div class="form-field full"><label>Preguntas / Notas</label><textarea rows="3" placeholder="Cualquier pregunta sobre la estructura del deal, la propiedad, el timeline o los retornos esperados..."></textarea></div>
       </div>
       <button class="submit-btn" onclick="handleSubmit(this)">Enviar Expresión de Interés →</button>
-      <p class="disc">Este documento está preparado únicamente para inversionistas calificados y no constituye una oferta de venta de valores conforme a las leyes de valores aplicables. Todas las proyecciones financieras son estimaciones a futuro basadas en supuestos razonables y no garantizan resultados. La información de zoning proviene de comunicaciones directas con Highlands County Planning & Zoning (Mayo 2026). El proceso de entitlement está sujeto a aprobaciones del condado. · BKS-2026-PLF-001 · Mayo 2026 · Brickstackers Intelligence Capital Desk · 3601 Placid Lakes Blvd · Lake Placid, FL 33852</p>
+      <p class="disc">Este documento está preparado únicamente para inversionistas calificados y no constituye una oferta de venta de valores conforme a las leyes de valores aplicables. Todas las proyecciones financieras son estimaciones a futuro basadas en supuestos razonables y no garantizan resultados. La información de zoning proviene de comunicaciones directas con Highlands County Planning & Zoning (Mayo 2026). El proceso de entitlement está sujeto a aprobaciones del condado. · BKS-2026-PLG-001 · Mayo 2026 · Brickstackers Intelligence Capital Desk · 3601 Placid Lakes Blvd · Lake Placid, FL 33852</p>
     </div>
   </div>
 </section>
@@ -229,18 +230,19 @@
 <footer>
   <a href="index.html" class="footer-brand">Placid <span>Grove</span></a>
   <ul class="footer-links">
-    <li><a href="concepto.html">Concepto</a></li>
-    <li><a href="producto.html">Producto</a></li>
-    <li><a href="inversion.html">Inversión</a></li>
-    <li><a href="estrategia.html">Estrategia</a></li>
+    <li><a href="concepto.html" data-i18n="nav.concepto">Concepto</a></li>
+    <li><a href="producto.html" data-i18n="nav.producto">Producto</a></li>
+    <li><a href="inversion.html" data-i18n="nav.inversion">Inversión</a></li>
+    <li><a href="estrategia.html" data-i18n="nav.estrategia">Estrategia</a></li>
   </ul>
   <div class="footer-meta">
-    <div>BKS-2026-PLF-001 · Mayo 2026</div>
-    <div>Brickstackers Intelligence · Mesa de Capital</div>
-    <div>Lake Placid, FL 33852</div>
+    <div data-i18n="footer.meta1">BKS-2026-PLG-001 · Mayo 2026</div>
+    <div data-i18n="footer.meta2">Brickstackers Intelligence · Mesa de Capital</div>
+    <div data-i18n="footer.meta3">Lake Placid, FL 33852</div>
   </div>
 </footer>
 
+<script src="i18n.js"></script>
 <script>
 function toggleNav(){document.querySelector('.nav-links').classList.toggle('open')}
 function switchGal(id,btn){

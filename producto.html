@@ -74,6 +74,28 @@
 .tier-features li::before{content:'·';position:absolute;left:0;color:var(--sage)}
 .cabin-finishes{display:flex;flex-wrap:wrap;gap:6px}
 .ftag{background:var(--ink);color:var(--cream);padding:4px 11px;border-radius:2px;font-size:0.6rem;letter-spacing:0.1em;text-transform:uppercase}
+/* VIP PIONEROS */
+.vip-program{background:var(--ink);padding:100px 0;position:relative;overflow:hidden}
+.vip-program::before{content:'';position:absolute;top:-200px;right:-200px;width:600px;height:600px;border-radius:50%;background:radial-gradient(circle,rgba(200,168,75,0.08) 0%,transparent 70%);pointer-events:none}
+.vip-program .s-label{color:var(--gold)}
+.vip-program .s-label::before{background:var(--gold)}
+.vip-program .s-title{color:var(--cream)}
+.vip-program .s-title em{color:var(--gold)}
+.vip-program .s-body{color:rgba(246,238,216,0.7);max-width:720px}
+.vip-badge{display:inline-flex;align-items:center;gap:10px;background:rgba(200,168,75,0.15);border:1px solid rgba(200,168,75,0.35);color:var(--gold);padding:6px 14px;border-radius:2px;font-size:0.62rem;letter-spacing:0.2em;text-transform:uppercase;font-weight:600;margin-bottom:24px}
+.vip-badge-dot{width:6px;height:6px;background:var(--gold);border-radius:50%;animation:blink 2s infinite}
+.vip-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:2px;margin-top:48px;background:rgba(200,168,75,0.12);border-radius:4px;overflow:hidden}
+.vip-stat{background:rgba(26,18,8,0.7);padding:28px 22px;text-align:center}
+.vip-stat-val{font-family:'Cormorant Garamond',serif;font-size:2.6rem;font-weight:600;color:var(--gold);line-height:1}
+.vip-stat-lbl{font-size:0.6rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--stone);margin-top:6px}
+.vip-perks{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:48px}
+.vip-perk{background:rgba(246,238,216,0.04);border:1px solid rgba(200,168,75,0.15);border-radius:4px;padding:22px 24px;display:flex;gap:16px;align-items:flex-start}
+.vip-perk-icon{font-size:1.4rem;flex-shrink:0;margin-top:2px}
+.vip-perk-text h5{font-family:'Cormorant Garamond',serif;font-size:1.05rem;font-weight:600;color:var(--cream);margin-bottom:4px}
+.vip-perk-text p{font-size:0.78rem;line-height:1.65;color:rgba(246,238,216,0.55)}
+.vip-cta-row{display:flex;gap:14px;margin-top:36px;flex-wrap:wrap;align-items:center}
+.vip-cta-text{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:1rem;color:rgba(246,238,216,0.65);flex:1;min-width:280px}
+@media(max-width:960px){.vip-grid{grid-template-columns:repeat(2,1fr)}.vip-perks{grid-template-columns:1fr}}
 /* FINANCING */
 .financing{background:var(--ink);padding:100px 0}
 .financing-models{display:grid;grid-template-columns:1fr 1fr;gap:3px;margin-top:60px;background:rgba(200,168,75,0.12);border-radius:4px;overflow:hidden}
@@ -327,6 +349,68 @@
         <span class="ftag">Anti-Huracán</span>
         <span class="ftag">Smart Home</span>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROGRAMA PIONERO VIP -->
+<section class="vip-program">
+  <div class="container">
+    <div class="vip-badge"><div class="vip-badge-dot"></div>Programa Pionero · Cupos Limitados</div>
+    <div class="s-label">Founders Circle</div>
+    <h2 class="s-title">Las primeras <em>10 cabañas</em><br>con 12.5% de descuento</h2>
+    <p class="s-body">Para los primeros 10 compradores que crean en Placid Farm antes de que las amenidades estén construidas. Un descuento real ($25,000 sobre el precio retail) más perks permanentes de fundador — y la primera selección del mejor inventario.</p>
+    <div class="vip-grid reveal">
+      <div class="vip-stat">
+        <div class="vip-stat-val">10</div>
+        <div class="vip-stat-lbl">Cupos disponibles</div>
+      </div>
+      <div class="vip-stat">
+        <div class="vip-stat-val">$174K</div>
+        <div class="vip-stat-lbl">Precio VIP · Std</div>
+      </div>
+      <div class="vip-stat">
+        <div class="vip-stat-val">$25K</div>
+        <div class="vip-stat-lbl">Ahorro vs Retail</div>
+      </div>
+      <div class="vip-stat">
+        <div class="vip-stat-val">12.5%</div>
+        <div class="vip-stat-lbl">Descuento real</div>
+      </div>
+    </div>
+    <div class="vip-perks reveal">
+      <div class="vip-perk">
+        <div class="vip-perk-icon">🗺️</div>
+        <div class="vip-perk-text">
+          <h5>Primera selección de lote</h5>
+          <p>Eliges el lote primero — antes que cualquier otro comprador. Acceso preferencial a los lotes con mejor vista, orientación al lago y proximidad a las amenidades.</p>
+        </div>
+      </div>
+      <div class="vip-perk">
+        <div class="vip-perk-icon">🏷️</div>
+        <div class="vip-perk-text">
+          <h5>Placa Founders Circle</h5>
+          <p>Reconocimiento permanente como uno de los 10 fundadores de Placid Farm. Placa con tu nombre en el área comunitaria y mención en la cronología histórica de la propiedad.</p>
+        </div>
+      </div>
+      <div class="vip-perk">
+        <div class="vip-perk-icon">🌙</div>
+        <div class="vip-perk-text">
+          <h5>Early access al rental pool</h5>
+          <p>Cuando uses tu cabaña, los Founders tienen prioridad en la selección de fines de semana premium y festivos. Por encima de los compradores retail.</p>
+        </div>
+      </div>
+      <div class="vip-perk">
+        <div class="vip-perk-icon">🍷</div>
+        <div class="vip-perk-text">
+          <h5>Evento anual de fundadores</h5>
+          <p>Cena/retreat exclusivo con los 10 VIPs y el equipo del GP. Conversación íntima sobre el desarrollo, decisiones futuras y la comunidad que están creando juntos.</p>
+        </div>
+      </div>
+    </div>
+    <div class="vip-cta-row">
+      <p class="vip-cta-text">"Sé de los primeros 10 que creyeron en Placid Farm — el resto pagará más por cabañas con menos vista."</p>
+      <a href="contacto.html#interes" class="btn-prim">Apartar mi cupo VIP →</a>
     </div>
   </div>
 </section>

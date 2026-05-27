@@ -12,7 +12,7 @@
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Placid Farm · Brickstackers">
 <meta property="og:title" content="Placid Farm — Inversión y Retornos">
-<meta property="og:description" content="Proforma, waterfall y retornos · MOIC 4.7× base · 8% retorno preferente · Capital buscado $1.8M.">
+<meta property="og:description" content="Proforma, waterfall y retornos · IRR ~23% cash en 30 meses + Zona B equity · Capital buscado $2.0M · Estructura asociativa 50/50 sin pref.">
 <meta property="og:image" content="https://res.cloudinary.com/df9mz9qei/image/upload/w_1200,h_630,c_fill,g_auto,q_auto/v1779254024/31085FDB-B945-452B-887D-D3802CEEFC55_paydjs.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
@@ -120,6 +120,21 @@
 .moic-sub{font-size:0.78rem;color:rgba(246,238,216,0.45);margin-top:8px}
 /* CAPITAL STRUCTURE */
 .capital-structure{background:var(--white);padding:80px 0}
+/* PROJECT STRUCTURE PILLARS */
+.structure-pillars{background:var(--ink);padding:80px 0}
+.structure-pillars .s-label{color:var(--gold)}
+.structure-pillars .s-label::before{background:var(--gold)}
+.structure-pillars .s-title{color:var(--cream)}
+.structure-pillars .s-title em{color:var(--gold)}
+.structure-pillars .s-body{color:rgba(246,238,216,0.65);max-width:780px}
+.pillars-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:3px;margin-top:48px;background:rgba(200,168,75,0.1);border-radius:4px;overflow:hidden}
+.pillar{background:rgba(26,18,8,0.7);padding:32px 28px;position:relative;overflow:hidden}
+.pillar-icon{font-size:1.6rem;margin-bottom:14px}
+.pillar-title{font-family:'Cormorant Garamond',serif;font-size:1.3rem;font-weight:600;color:var(--cream);margin-bottom:10px}
+.pillar-title em{font-style:italic;color:var(--gold)}
+.pillar-body{font-size:0.82rem;line-height:1.7;color:rgba(246,238,216,0.6)}
+.pillar-highlight{margin-top:16px;padding:12px 14px;font-size:0.72rem;font-weight:500;border-radius:2px;background:rgba(122,143,90,0.12);color:var(--fern)}
+@media(max-width:960px){.pillars-grid{grid-template-columns:1fr}}
 .cs-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:3px;margin-top:48px;background:var(--linen);border-radius:4px;overflow:hidden}
 .cs-item{background:var(--white);padding:28px 24px}
 .cs-item.dark{background:var(--ink)}
@@ -307,37 +322,66 @@
     <div class="cs-grid reveal">
       <div class="cs-item dark">
         <div class="cs-lbl">Capital Buscado</div>
-        <div class="cs-val">$1,800,000</div>
-        <div class="cs-desc">$1.5M tierra + $300K working capital · Equity preferente</div>
-      </div>
-      <div class="cs-item">
-        <div class="cs-lbl">Retorno Preferente</div>
-        <div class="cs-val">8%</div>
-        <div class="cs-desc">Anual sobre el capital invertido · acumulativo</div>
+        <div class="cs-val">$2,000,000</div>
+        <div class="cs-desc">$1.5M tierra + $500K working capital · Estructura asociativa</div>
       </div>
       <div class="cs-item">
         <div class="cs-lbl">Split de Utilidades</div>
         <div class="cs-val">50/50</div>
-        <div class="cs-desc">Después de devolver capital + retorno preferente</div>
+        <div class="cs-desc">Inv y GP socios paritarios · sin retorno preferente</div>
+      </div>
+      <div class="cs-item">
+        <div class="cs-lbl">Equity Zona B (4.42 ac R-3)</div>
+        <div class="cs-val">50/50</div>
+        <div class="cs-desc">Opción de desarrollo hospitality futuro · valor estimado $900K al inv</div>
       </div>
     </div>
     <div class="structure-box reveal">
       <div class="sb-title">Términos del Acuerdo de Inversión</div>
       <div>
-        <div class="sb-row"><span>Estructura</span><span>Equity Preferente</span></div>
-        <div class="sb-row"><span>Retorno Preferente</span><span>8% / año</span></div>
-        <div class="sb-row"><span>Split Zona A (después de pref)</span><span>50/50 Inv/GP</span></div>
+        <div class="sb-row"><span>Estructura</span><span>Asociativa 50/50</span></div>
+        <div class="sb-row"><span>Retorno Preferente</span><span>Ninguno · split paritario</span></div>
+        <div class="sb-row"><span>Devolución de Capital</span><span>Prioritaria antes de split</span></div>
+        <div class="sb-row"><span>Split Zona A (después de capital)</span><span>50/50 Inv/GP</span></div>
         <div class="sb-row"><span>Equity Zona B (50%)</span><span>Interés titulado</span></div>
-        <div class="sb-row"><span>Equity Zona C (50%)</span><span>Interés titulado</span></div>
-        <div class="sb-row hl"><span>Horizonte de inversión</span><span>2–3 años</span></div>
+        <div class="sb-row hl"><span>Horizonte cash Zona A</span><span>30 meses</span></div>
       </div>
       <div>
         <div class="sb-row"><span>Mínimo de inversión</span><span>$100,000</span></div>
-        <div class="sb-row"><span>Ticket completo</span><span>$1,800,000</span></div>
+        <div class="sb-row"><span>Ticket completo</span><span>$2,000,000</span></div>
         <div class="sb-row"><span>Distribuciones</span><span>Al cierre de cada venta</span></div>
-        <div class="sb-row"><span>Entidad receptora</span><span>Florida LLC en formación</span></div>
-        <div class="sb-row"><span>Garantía personal GP</span><span>Disponible</span></div>
+        <div class="sb-row"><span>Entidad receptora</span><span>Placid Farm Promotora LLC (Florida)</span></div>
+        <div class="sb-row"><span>Línea standby</span><span>$500K · solo si necesaria</span></div>
         <div class="sb-row hl"><span>Documentación</span><span>Operating Agreement + PPM</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECT STRUCTURE PILLARS -->
+<section class="structure-pillars">
+  <div class="container">
+    <div class="s-label">Estructura del Proyecto</div>
+    <h2 class="s-title">Tres pilares que <em>protegen</em> tu capital</h2>
+    <p class="s-body">El inversionista, el comprador final y el GP están todos alineados sobre el mismo activo subyacente: tierra real en Florida. Esta es la lógica estructural que cuida el capital del inversionista en cada fase del proyecto.</p>
+    <div class="pillars-grid">
+      <div class="pillar reveal">
+        <div class="pillar-icon">🌎</div>
+        <h3 class="pillar-title">Inversión respaldada por <em>activo físico real</em></h3>
+        <p class="pillar-body">El capital del inversionista funda la compra de 134 acres titulados en Highlands County. El activo subyacente es tangible, asegurable y revalorizable — no se diluye en deuda corporativa ni en intangibles. En cualquier escenario, la tierra protege el principal.</p>
+        <div class="pillar-highlight">Capital → 134 acres titulados</div>
+      </div>
+      <div class="pillar reveal">
+        <div class="pillar-icon">🏦</div>
+        <h3 class="pillar-title">Toda la deuda bancaria <em>la asume el comprador final</em></h3>
+        <p class="pillar-body">El financiamiento de cada cabaña corre por cuenta del comprador vía DSCR loans (basados en el yield de la propiedad, no en su income personal). La promotora no carga deuda corporativa, no firma garantías personales, y no expone capital a riesgo de tasa.</p>
+        <div class="pillar-highlight">$14.46M en DSCR loans · no afectan al inversionista</div>
+      </div>
+      <div class="pillar reveal">
+        <div class="pillar-icon">🛡️</div>
+        <h3 class="pillar-title">Línea de <em>liquidez standby</em> conservadora</h3>
+        <p class="pillar-body">El proyecto cuenta con una línea de crédito standby de $500,000 colateralizada por la tierra, aprobada al cierre pero no drawn por defecto. Funciona como red de seguridad ante delays en pre-venta o sobrecostos. Es responsabilidad del GP y no afecta el equity del inversionista.</p>
+        <div class="pillar-highlight">$500K standby · solo activable si plan A no cubre</div>
       </div>
     </div>
   </div>
@@ -355,66 +399,65 @@
     </div>
     <div class="tab-panel active" id="tab-base">
       <div class="fin-hero reveal">
-        <div class="fin-moic">4.7×</div>
-        <div class="fin-moic-lbl">MOIC Total</div>
-        <div class="fin-irr">~40%</div>
-        <div class="fin-irr-lbl">IRR Estimado (5 años)</div>
+        <div class="fin-moic">~23%</div>
+        <div class="fin-moic-lbl">IRR Cash · 30 meses</div>
+        <div class="fin-irr">+ $900K</div>
+        <div class="fin-irr-lbl">Zona B Equity · 5 años</div>
       </div>
       <table class="data-table reveal">
         <tr><th>Concepto</th><th style="text-align:right">Valor</th></tr>
-        <tr><td>55 Std × $199K + 18 Premium × $270K + 7 Casona × $360K</td><td class="mono">$18,325,000</td></tr>
-        <tr><td>Total Costos (tierra + platting + infra + construcción + amenidades + marketing + contingencia)</td><td class="mono">$13,264,625</td></tr>
-        <tr class="hl"><td>Utilidad Bruta Zona A</td><td class="mono">$5,060,375</td></tr>
-        <tr><td>Margen de Desarrollo</td><td class="mono">27.6%</td></tr>
-        <tr><td>Reserva operativa 3%</td><td class="mono">$151,811</td></tr>
-        <tr><td>① Capital Devuelto al Inversionista</td><td class="mono">$1,800,000</td></tr>
-        <tr><td>② Retorno Preferente acumulado (8% · ~2.5 años)</td><td class="mono">$360,000</td></tr>
-        <tr><td>③ 50% Remanente → Inversionista</td><td class="mono">$1,374,282</td></tr>
-        <tr class="hl"><td>Subtotal Cash al Inversionista (solo Zona A)</td><td class="mono">$3,534,282</td></tr>
-        <tr><td>50% PM + HOA Business (8× EBITDA · $888,600/año)</td><td class="mono">$3,554,400</td></tr>
-        <tr><td>50% Zona B (restaurante + 4.42 ac R-3)</td><td class="mono">$1,050,000</td></tr>
-        <tr><td>50% Zona C (63 acres preserva)</td><td class="mono">$250,000</td></tr>
-        <tr class="hl total-tr"><td>TOTAL VALOR CREADO PARA EL INVERSIONISTA</td><td class="mono">$8,388,682</td></tr>
+        <tr><td>10 VIP × $174K + 45 Std × $199K + 18 Prem × $270K + 7 Casona × $360K</td><td class="mono">$18,075,000</td></tr>
+        <tr><td>Total Costos (tierra + platting + infra + construcción + amenidades + marketing + contingencia)</td><td class="mono">$13,256,375</td></tr>
+        <tr class="hl"><td>Utilidad Bruta Zona A</td><td class="mono">$4,818,625</td></tr>
+        <tr><td>Margen de Desarrollo</td><td class="mono">26.7%</td></tr>
+        <tr><td>Reserva operativa 3%</td><td class="mono">$144,559</td></tr>
+        <tr><td>① Devolución de Capital al Inversionista</td><td class="mono">$2,000,000</td></tr>
+        <tr><td>② 50% Remanente → Inversionista</td><td class="mono">$1,337,033</td></tr>
+        <tr class="hl"><td>Subtotal Cash al Inversionista (solo Zona A · 30 meses)</td><td class="mono">$3,337,033</td></tr>
+        <tr><td>50% Equity Zona B (4.42 ac R-3 · hospitality opcional año 3-5)</td><td class="mono">$900,000</td></tr>
+        <tr class="hl total-tr"><td>TOTAL VALOR CREADO PARA EL INVERSIONISTA</td><td class="mono">$4,237,033</td></tr>
       </table>
     </div>
     <div class="tab-panel" id="tab-mid">
       <div class="fin-hero reveal">
-        <div class="fin-moic">5.3×</div>
-        <div class="fin-moic-lbl">MOIC Total</div>
-        <div class="fin-irr">~44%</div>
-        <div class="fin-irr-lbl">IRR Estimado (5 años)</div>
+        <div class="fin-moic">~26%</div>
+        <div class="fin-moic-lbl">IRR Cash · 30 meses</div>
+        <div class="fin-irr">+ $1.2M</div>
+        <div class="fin-irr-lbl">Zona B Equity · 5 años</div>
       </div>
       <table class="data-table reveal">
         <tr><th>Concepto</th><th style="text-align:right">Valor</th></tr>
-        <tr><td>Mismo mix 55/18/7 con price uplift 3% + ADRs 10% sobre base</td><td class="mono">$18,875,000</td></tr>
-        <tr><td>Total Costos</td><td class="mono">$13,264,625</td></tr>
-        <tr class="hl"><td>Utilidad Bruta Zona A</td><td class="mono">$5,610,375</td></tr>
-        <tr><td>Margen</td><td class="mono">29.7%</td></tr>
-        <tr><td>① + ② Capital + Retorno Preferente</td><td class="mono">$2,160,000</td></tr>
-        <tr><td>③ 50% Remanente → Inversionista</td><td class="mono">$1,641,030</td></tr>
-        <tr class="hl"><td>Subtotal Cash al Inversionista</td><td class="mono">$3,801,030</td></tr>
-        <tr><td>Equity PM 8× con ADRs uplift + Zona B $1.5M + Zona C $400K</td><td class="mono">$5,809,200</td></tr>
-        <tr class="hl total-tr"><td>TOTAL VALOR CREADO</td><td class="mono">$9,610,230</td></tr>
+        <tr><td>Mismo mix 55/18/7 con price uplift 3% sobre retail</td><td class="mono">$18,620,000</td></tr>
+        <tr><td>Total Costos</td><td class="mono">$13,256,375</td></tr>
+        <tr class="hl"><td>Utilidad Bruta Zona A</td><td class="mono">$5,363,625</td></tr>
+        <tr><td>Margen</td><td class="mono">28.8%</td></tr>
+        <tr><td>Reserva 3%</td><td class="mono">$160,909</td></tr>
+        <tr><td>① Devolución de Capital</td><td class="mono">$2,000,000</td></tr>
+        <tr><td>② 50% Remanente → Inversionista</td><td class="mono">$1,601,358</td></tr>
+        <tr class="hl"><td>Subtotal Cash al Inversionista (30 meses)</td><td class="mono">$3,601,358</td></tr>
+        <tr><td>50% Equity Zona B (revalorización a $2.4M total)</td><td class="mono">$1,200,000</td></tr>
+        <tr class="hl total-tr"><td>TOTAL VALOR CREADO</td><td class="mono">$4,801,358</td></tr>
       </table>
     </div>
     <div class="tab-panel" id="tab-up">
       <div class="fin-hero reveal">
-        <div class="fin-moic">6.4×</div>
-        <div class="fin-moic-lbl">MOIC Total</div>
-        <div class="fin-irr">~48%</div>
-        <div class="fin-irr-lbl">IRR Estimado (5 años)</div>
+        <div class="fin-moic">~31%</div>
+        <div class="fin-moic-lbl">IRR Cash · 30 meses</div>
+        <div class="fin-irr">+ $1.8M</div>
+        <div class="fin-irr-lbl">Zona B Equity · 5 años</div>
       </div>
       <table class="data-table reveal">
         <tr><th>Concepto</th><th style="text-align:right">Valor</th></tr>
-        <tr><td>Mismo mix 55/18/7 con price uplift 8% + ADRs premium</td><td class="mono">$19,800,000</td></tr>
-        <tr><td>Total Costos</td><td class="mono">$13,264,625</td></tr>
-        <tr class="hl"><td>Utilidad Bruta Zona A</td><td class="mono">$6,535,375</td></tr>
-        <tr><td>Margen</td><td class="mono">33.0%</td></tr>
-        <tr><td>① + ② Capital + Retorno Preferente</td><td class="mono">$2,160,000</td></tr>
-        <tr><td>③ 50% Remanente → Inversionista</td><td class="mono">$2,089,690</td></tr>
-        <tr class="hl"><td>Subtotal Cash al Inversionista</td><td class="mono">$4,249,690</td></tr>
-        <tr><td>Equity PM 10× EBITDA + Zona B $1.8M + Zona C $500K</td><td class="mono">$7,188,000</td></tr>
-        <tr class="hl total-tr"><td>TOTAL VALOR CREADO</td><td class="mono">$11,437,690</td></tr>
+        <tr><td>Mismo mix 55/18/7 con price uplift 8% sobre retail</td><td class="mono">$19,540,000</td></tr>
+        <tr><td>Total Costos</td><td class="mono">$13,256,375</td></tr>
+        <tr class="hl"><td>Utilidad Bruta Zona A</td><td class="mono">$6,283,625</td></tr>
+        <tr><td>Margen</td><td class="mono">32.2%</td></tr>
+        <tr><td>Reserva 3%</td><td class="mono">$188,509</td></tr>
+        <tr><td>① Devolución de Capital</td><td class="mono">$2,000,000</td></tr>
+        <tr><td>② 50% Remanente → Inversionista</td><td class="mono">$2,047,558</td></tr>
+        <tr class="hl"><td>Subtotal Cash al Inversionista (30 meses)</td><td class="mono">$4,047,558</td></tr>
+        <tr><td>50% Equity Zona B (escenario hospitality completo $3.6M total)</td><td class="mono">$1,800,000</td></tr>
+        <tr class="hl total-tr"><td>TOTAL VALOR CREADO</td><td class="mono">$5,847,558</td></tr>
       </table>
     </div>
   </div>
@@ -428,43 +471,33 @@
     <div class="wf-layout">
       <div>
         <div class="wf-steps">
-          <div class="wf-step reveal"><div class="wf-n">①</div><div class="wf-c"><h5>Primeras ventas → Amenidades & Infraestructura</h5><p>Las primeras ventas se reinvierten en construir amenidades, infraestructura y platting ($1.75M amenidades + $600K infra + $200K platting)</p></div></div>
-          <div class="wf-step reveal"><div class="wf-n">②</div><div class="wf-c"><h5>Reserva Operativa — 3% ($151,811)</h5><p>Reservados para gastos post-cierre e imprevistos · 3% de utilidad bruta</p></div></div>
-          <div class="wf-step reveal"><div class="wf-n">③</div><div class="wf-c"><h5>Devolución de Capital — $1,800,000</h5><p>Tras completar amenidades base, se prioriza retorno del capital al inversionista (Mes ~14–18)</p></div></div>
-          <div class="wf-step reveal"><div class="wf-n">④</div><div class="wf-c"><h5>Retorno Preferente — 8% acumulado ($360,000)</h5><p>$360,000 acumulado sobre $1.8M (8% × ~2.5 años). Pagado de ventas siguientes</p></div></div>
-          <div class="wf-step reveal"><div class="wf-n">⑤</div><div class="wf-c"><h5>Split 50/50 del Remanente</h5><p>Utilidad restante ($2,748,564) dividida en partes iguales · $1,374,282 cada parte</p></div></div>
-          <div class="wf-step reveal"><div class="wf-n">⑥</div><div class="wf-c"><h5>Equity Permanente Zonas B + C</h5><p>50% del restaurante, 4.42 acres R-3, y 63 acres de preserva. Titulados al completar ventas de Zona A</p></div></div>
+          <div class="wf-step reveal"><div class="wf-n">①</div><div class="wf-c"><h5>Primeras ventas → Amenidades & Infraestructura</h5><p>VIP closings + primeras retail funden las amenidades y la infraestructura ($1.75M amenidades + $600K infra + $200K platting)</p></div></div>
+          <div class="wf-step reveal"><div class="wf-n">②</div><div class="wf-c"><h5>Reserva Operativa — 3% ($144,559)</h5><p>Reservados para gastos post-cierre e imprevistos · 3% de utilidad bruta</p></div></div>
+          <div class="wf-step reveal"><div class="wf-n">③</div><div class="wf-c"><h5>Devolución de Capital — $2,000,000</h5><p>Prioritaria antes del split. Cubierta entre mes 14-20 conforme avanzan las ventas retail</p></div></div>
+          <div class="wf-step reveal"><div class="wf-n">④</div><div class="wf-c"><h5>Split 50/50 del Remanente</h5><p>Utilidad restante ($2,674,066) dividida paritariamente · $1,337,033 al inversionista, $1,337,033 al GP</p></div></div>
+          <div class="wf-step reveal"><div class="wf-n">⑤</div><div class="wf-c"><h5>Equity Zona B (4.42 ac R-3)</h5><p>Inversionista retiene 50% del entitlement Zona B como opcionalidad de desarrollo hospitality entre años 3-5</p></div></div>
         </div>
         <div class="wf-total reveal">
-          <div class="wf-total-row"><span class="wf-total-lbl">Capital Devuelto</span><span class="wf-total-val">$1,800,000</span></div>
-          <div class="wf-total-row"><span class="wf-total-lbl">Retorno Preferente</span><span class="wf-total-val">$360,000</span></div>
-          <div class="wf-total-row"><span class="wf-total-lbl">50% Remanente Ventas</span><span class="wf-total-val">$1,374,282</span></div>
-          <div class="wf-total-row"><span class="wf-total-lbl">SUBTOTAL CASH (Zona A)</span><span class="wf-total-val big">$3,534,282</span></div>
+          <div class="wf-total-row"><span class="wf-total-lbl">Capital Devuelto</span><span class="wf-total-val">$2,000,000</span></div>
+          <div class="wf-total-row"><span class="wf-total-lbl">50% Remanente Ventas</span><span class="wf-total-val">$1,337,033</span></div>
+          <div class="wf-total-row"><span class="wf-total-lbl">SUBTOTAL CASH (Zona A · 30 meses)</span><span class="wf-total-val big">$3,337,033</span></div>
         </div>
       </div>
       <div class="wf-equity-right reveal">
-        <h3>El equity permanente —<br>lo que queda para siempre</h3>
-        <p>Cuando terminan las ventas de Zona A, el inversionista no solo recibió su dinero + retorno. También quedó como socio 50/50 en tres activos independientes que generan ingresos sin necesidad de hacer nada más.</p>
-        <div class="equity-source">
-          <div class="es-info"><h5>Negocio PM + HOA</h5><p>$888,600/año · capitalizado 8× EBITDA</p></div>
-          <span class="es-val">$3,554,400</span>
-        </div>
+        <h3>El upside opcional —<br>Zona B <em>hospitality</em></h3>
+        <p>Al cierre de Zona A (mes 30) el inversionista recibe su salida completa en cash. Además retiene 50% del título de Zona B (4.42 acres R-3, ya aprobada para hospitality) como opción de upside a 5 años — sin obligación de seguir aportando capital.</p>
         <div class="equity-source zona-b">
-          <div class="es-info"><h5>Zona B · 4.42 acres R-3</h5><p>Restaurante + entitlement 48 unidades</p></div>
-          <span class="es-val">$1,050,000+</span>
-        </div>
-        <div class="equity-source zona-c">
-          <div class="es-info"><h5>Zona C · 63 acres preserva</h5><p>Conservation easement + amenity land</p></div>
-          <span class="es-val">$250,000+</span>
+          <div class="es-info"><h5>Zona B · 4.42 acres R-3 entitled</h5><p>Opción hospitality boutique / townhomes · realizable año 3-5</p></div>
+          <span class="es-val">$900,000+</span>
         </div>
         <div class="equity-total">
-          <span>Subtotal Equity Permanente</span>
-          <span>$4,854,400</span>
+          <span>Equity Zona B (50% inv)</span>
+          <span>$900,000</span>
         </div>
         <div class="moic-box">
-          <div class="moic-big">4.7×</div>
-          <div class="moic-lbl">MOIC Total Sobre $1,800,000</div>
-          <div class="moic-sub">$8,388,682 de valor creado total · caso base</div>
+          <div class="moic-big">~23%</div>
+          <div class="moic-lbl">IRR Cash · 30 meses sobre $2.0M</div>
+          <div class="moic-sub">$3,337,033 cash + $900K equity Zona B · total valor $4,237,033</div>
         </div>
       </div>
     </div>

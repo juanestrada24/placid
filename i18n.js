@@ -70,7 +70,7 @@ const TRANSLATIONS = {
 
     /* ===== INDEX · FINQUITA ===== */
     'idx.finq.label': 'Para el Latino en Florida',
-    'idx.finq.title': 'La <em>finquita</em><br>que siempre soñaste',
+    'idx.finq.title': 'Todos <em>anhelamos</em><br>un lugar de retiro',
     'idx.finq.body': 'No importa si eras de Bogotá, Medellín, Caracas, Ciudad de México o San José. La casa de campo a las afueras, ese lugar donde el tiempo corre diferente — es el lujo más genuino de nuestra cultura. Placid Grove nació exactamente para eso.',
     'idx.finq.i1': '<strong>Tu pedacito de tierra en Florida</strong> — con escritura real, lote propio, cabaña que se paga sola',
     'idx.finq.i2': '<strong>Escape de la rutina urbana</strong> — a 2.5 horas de 12 millones de personas pero en otro mundo completamente',
@@ -150,7 +150,7 @@ const TRANSLATIONS = {
 
     /* ===== INDEX · FINQUITA ===== */
     'idx.finq.label': 'For the Latino in Florida',
-    'idx.finq.title': 'The <em>finquita</em><br>you always dreamed of',
+    'idx.finq.title': 'We all <em>long for</em><br>a place of retreat',
     'idx.finq.body': 'It doesn\'t matter if you\'re from Bogotá, Medellín, Caracas, Mexico City or San José. The country house on the outskirts — that place where time runs differently — is the most genuine luxury of our culture. Placid Grove was born precisely for that.',
     'idx.finq.i1': '<strong>Your piece of land in Florida</strong> — real deed, your own lot, a cabin that pays for itself',
     'idx.finq.i2': '<strong>An escape from the urban routine</strong> — 2.5 hours from 12 million people, yet a completely different world',

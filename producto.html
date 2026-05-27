@@ -74,6 +74,21 @@
 .tier-features li::before{content:'·';position:absolute;left:0;color:var(--sage)}
 .cabin-finishes{display:flex;flex-wrap:wrap;gap:6px}
 .ftag{background:var(--ink);color:var(--cream);padding:4px 11px;border-radius:2px;font-size:0.6rem;letter-spacing:0.1em;text-transform:uppercase}
+/* MARKET TRENDS */
+.market-trends{background:var(--parchment);padding:90px 0}
+.mt-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:48px;margin-bottom:24px}
+.mt-card{background:var(--white);border:1px solid rgba(74,94,53,0.18);border-radius:4px;padding:24px 22px;transition:background 0.25s,border-color 0.25s;position:relative;overflow:hidden}
+.mt-card::before{content:'';position:absolute;left:0;top:0;width:3px;height:0;background:var(--moss);transition:height 0.3s}
+.mt-card:hover{background:rgba(122,143,90,0.06);border-color:var(--moss)}
+.mt-card:hover::before{height:100%}
+.mt-num{font-family:'DM Mono',monospace;font-size:0.72rem;font-weight:600;color:var(--sage);margin-bottom:6px;letter-spacing:0.06em}
+.mt-title{font-family:'Cormorant Garamond',serif;font-size:1.15rem;font-weight:700;color:var(--moss);margin-bottom:10px;line-height:1.2}
+.mt-body{font-size:0.78rem;line-height:1.6;color:var(--bark)}
+.mt-feature{background:rgba(74,94,53,0.08);border:1px solid rgba(74,94,53,0.25);border-radius:4px;padding:32px 36px;text-align:center;margin-top:14px}
+.mt-feature-label{font-size:0.62rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--moss);font-weight:700;margin-bottom:10px}
+.mt-feature-title{font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:700;color:var(--moss);margin-bottom:14px;font-style:italic}
+.mt-feature-body{font-size:0.86rem;line-height:1.7;color:var(--bark);max-width:780px;margin:0 auto}
+@media(max-width:960px){.mt-grid{grid-template-columns:1fr}.market-trends{padding:60px 0}}
 /* VIP PIONEROS */
 .vip-program{background:var(--ink);padding:100px 0;position:relative;overflow:hidden}
 .vip-program::before{content:'';position:absolute;top:-200px;right:-200px;width:600px;height:600px;border-radius:50%;background:radial-gradient(circle,rgba(200,168,75,0.08) 0%,transparent 70%);pointer-events:none}
@@ -204,6 +219,67 @@
     <p>No es una urbanización. Es una comunidad en la que realmente quieres vivir.</p>
   </div>
 </div>
+
+<!-- MARKET TRENDS -->
+<section class="market-trends">
+  <div class="container">
+    <div class="s-label reveal">Validación de Mercado</div>
+    <h2 class="s-title reveal">Tendencias que <em>abrazamos</em></h2>
+    <p class="s-body reveal">Placid Grove está alineado con las 9 tendencias más fuertes del turismo y real estate de hospitalidad en 2025–2026.</p>
+    <div class="mt-grid">
+      <div class="mt-card reveal">
+        <div class="mt-num">01</div>
+        <h3 class="mt-title">Nature Retreat Market</h3>
+        <p class="mt-body">Mercado global de $34B en 2025, creciendo al 7.4% anual hasta $49B en 2030.</p>
+      </div>
+      <div class="mt-card reveal">
+        <div class="mt-num">02</div>
+        <h3 class="mt-title">Outdoor Hospitality</h3>
+        <p class="mt-body">Glamping y tiny homes crecen al 12.5% anual. Marriott lanzó su Outdoor Collection en 2025.</p>
+      </div>
+      <div class="mt-card reveal">
+        <div class="mt-num">03</div>
+        <h3 class="mt-title">Distributed Hotel</h3>
+        <p class="mt-body">Unidades dispersas en el paisaje natural, conectadas por una marca unificada. El modelo del futuro.</p>
+      </div>
+      <div class="mt-card reveal">
+        <div class="mt-num">04</div>
+        <h3 class="mt-title">Cocooning Wellness</h3>
+        <p class="mt-body">Escapadas cortas y cercanas que se sienten protectoras. El antídoto al burnout urbano.</p>
+      </div>
+      <div class="mt-card reveal">
+        <div class="mt-num">05</div>
+        <h3 class="mt-title">Digital Detox</h3>
+        <p class="mt-body">Cabañas junto a lagos sin wifi son la forma más buscada de viajar en 2026 según Airbnb.</p>
+      </div>
+      <div class="mt-card reveal">
+        <div class="mt-num">06</div>
+        <h3 class="mt-title">Turismo Multigeneracional</h3>
+        <p class="mt-body">Familias completas con experiencias para cada edad. Uno de los segmentos de mayor crecimiento.</p>
+      </div>
+      <div class="mt-card reveal">
+        <div class="mt-num">07</div>
+        <h3 class="mt-title">Re-Earthing</h3>
+        <p class="mt-body">La tierra no es el fondo, es la actividad. Huertos, apicultura, senderos interpretativos.</p>
+      </div>
+      <div class="mt-card reveal">
+        <div class="mt-num">08</div>
+        <h3 class="mt-title">Social Wellness</h3>
+        <p class="mt-body">Conexión humana genuina. Fogatas, cenas comunales, rituales compartidos.</p>
+      </div>
+      <div class="mt-card reveal">
+        <div class="mt-num">09</div>
+        <h3 class="mt-title">Agriturismo Florida</h3>
+        <p class="mt-body">Florida lidera el agriturismo en EE.UU. en 2026. Farm-to-table con narrativa local auténtica.</p>
+      </div>
+    </div>
+    <div class="mt-feature reveal">
+      <div class="mt-feature-label">Tendencia adicional</div>
+      <h4 class="mt-feature-title">Stargazing Experiences</h4>
+      <p class="mt-feature-body">Más del 50% de viajeros de nature retreats buscan experiencias de cielo oscuro en 2026. Lake Placid, lejos de las luces urbanas de Florida, tiene cielos nocturnos excepcionales. Un activo de marca de costo casi cero y valor altísimo en redes sociales.</p>
+    </div>
+  </div>
+</section>
 
 <!-- AMENIDADES GRID -->
 <div class="am-grid-wrap">
